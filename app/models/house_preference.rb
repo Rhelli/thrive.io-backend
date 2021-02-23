@@ -1,0 +1,2 @@
+class HousePreference < ApplicationRecord
+end

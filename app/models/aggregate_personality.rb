@@ -1,0 +1,2 @@
+class AggregatePersonality < ApplicationRecord
+end

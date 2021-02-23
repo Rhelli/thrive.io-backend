@@ -1,0 +1,2 @@
+class FlatmatePreference < ApplicationRecord
+end
