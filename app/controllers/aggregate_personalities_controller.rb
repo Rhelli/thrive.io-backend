@@ -1,0 +1,2 @@
+class AggregatePersonalitiesController < ApplicationController
+end
