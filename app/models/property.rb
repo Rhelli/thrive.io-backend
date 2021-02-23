@@ -15,7 +15,7 @@ class Property < ApplicationRecord
   }
   validates :address, presence: true, length: {
     minimum: 1,
-    maximum: 1000
+    maximum: 1000,
     too_short: '%{count} is the minimum number of characters! Please ensure you have entered your address fully.',
     too_long: '%{count}, is the maximum number of characters! Try shortening your description!'
   }
