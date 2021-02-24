@@ -5,7 +5,6 @@ class Property < ApplicationRecord
     too_short: '%{count} is the minimum number of characters! Try to be more descriptive!',
     too_long: '%{count}, is the maximum number of characters! Try shortening your title!'
   }
-  validates :user_type, presence: true, inclusion: { in: %w[Looking Advertising] }
   # Validate images - Check bookmarked article and sign up to cloudinary to host images
   validates :blurb, presence: true, length: {
     minimum: 1,
@@ -42,8 +41,8 @@ class Property < ApplicationRecord
   validates :min_age, presence: true, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
   validates :max_age, presence: true, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
   validates :smoking, presence: true, inclusion: { in: %w[Any Smoking Non-Smoking] }
-  validates :pets, presence: true, inclusion: { in: %w[All Cats Dogs Fish Reptiles Birds Rodents Other] }
-  validates :genders, presence: true, inclusion: { in: %w[Male Female Transgender Other] }
+  validates :pets, presence: true, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }
+  validates :genders, presence: true, inclusion: { in: %w[Any Male Female Transgender Other] }
   validates :occupations, presence: true, inclusion: { in: %w[Any Student Professional] }
 end
 
