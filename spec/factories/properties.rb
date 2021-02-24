@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :property do
-    title { "MyString" }
-    user_type { "MyString" }
-    images { "MyText" }
-    blurb { "MyText" }
-    type { "" }
-    address { "MyString" }
-    postcode { "MyString" }
+    title { 'MyString' }
+    user_type { 'MyString' }
+    images { 'MyText' }
+    blurb { 'MyText' }
+    type { '' }
+    address { 'MyString' }
+    postcode { 'MyString' }
     price { 1 }
     deposit { 1 }
     bills { false }
@@ -22,6 +22,6 @@ FactoryBot.define do
     smoking { false }
     pets { false }
     genders { false }
-    occupations { "MyString" }
+    occupations { 'MyString' }
   end
 end

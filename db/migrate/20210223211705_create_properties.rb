@@ -6,6 +6,7 @@ class CreateProperties < ActiveRecord::Migration[6.1]
       t.text :images
       t.text :blurb
       t.string :address
+      t.string :town
       t.string :postcode
       t.integer :price
       t.integer :deposit
