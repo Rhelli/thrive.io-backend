@@ -10,19 +10,19 @@ class CreateProperties < ActiveRecord::Migration[6.1]
       t.string :postcode
       t.integer :price
       t.integer :deposit
-      t.boolean :bills
-      t.boolean :furnished
-      t.boolean :parking
-      t.boolean :outside_area
-      t.boolean :disabled_access
-      t.boolean :internet
+      t.string :bills
+      t.string :furnished
+      t.string :parking
+      t.string :outside_area
+      t.string :disabled_access
+      t.string :internet
       t.integer :occupant_count
       t.integer :room_count
       t.integer :min_age
       t.integer :max_age
-      t.boolean :smoking
-      t.boolean :pets
-      t.boolean :genders
+      t.string :smoking
+      t.string :pets
+      t.string :genders
       t.string :occupations
 
       t.timestamps

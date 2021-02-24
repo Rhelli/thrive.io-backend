@@ -5,7 +5,7 @@ class Property < ApplicationRecord
     too_short: '%{count} is the minimum number of characters! Try to be more descriptive!',
     too_long: '%{count}, is the maximum number of characters! Try shortening your title!'
   }
-  validates :user_type, presence: true, inclusion: { in: %w[looking advertising] }
+  validates :user_type, presence: true, inclusion: { in: %w[Looking Advertising] }
   # Validate images - Check bookmarked article and sign up to cloudinary to host images
   validates :blurb, presence: true, length: {
     minimum: 1,
@@ -31,24 +31,19 @@ class Property < ApplicationRecord
   }, format: { with: VALID_ADDRESS_REGEX }
   validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :deposit, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :bills, presence: true
-  validates :furnished, presence: true
-  validates :parking, presence: true
-  validates :outside_area, presence: true
-  validates :disabled_access, presence: true
-  validates :internet, presence: true
+  validates :bills, presence: true, inclusion: { in: ['Included', 'Not Included'] }
+  validates :furnished, presence: true, inclusion: { in: %w[Furnished Non-Furnished] }
+  validates :parking, presence: true, inclusion: { in: ['Parking', 'No Parking'] }
+  validates :outside_area, presence: true, inclusion: { in: %w[Garden Terrace Patio Balcony Other] }
+  validates :disabled_access, presence: true, inclusion: { in: ['Disabled Access', 'No Disabled Access'] }
+  validates :internet, presence: true, inclusion: { in: ['Internet Included', 'No Internet Included'] }
   validates :occupant_count, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :room_count, presence: true, numericality: { only_integer: true, greater_than: 1 }
   validates :min_age, presence: true, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
   validates :max_age, presence: true, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
-  validates :smoking, presence: true
-  validates :pets, presence: true
-  validates :genders, presence: true
-  validates :occupations, presence: true, length: {
-    minimum: 1,
-    maximum: 140,
-    too_short: '%{count} is the minimum character length! Please ensure you have added you occupations!',
-    too_long: '%{count} is the maximum character length! Please either validate or abbreviate your occupation titles!'
-  }, format: { with: /\A[a-zA-Z ,.'-]+\z/ }
+  validates :smoking, presence: true, inclusion: { in: %w[Any Smoking Non-Smoking] }
+  validates :pets, presence: true, inclusion: { in: %w[All Cats Dogs Fish Reptiles Birds Rodents Other] }
+  validates :genders, presence: true, inclusion: { in: %w[Male Female Transgender Other] }
+  validates :occupations, presence: true, inclusion: { in: %w[Any Student Professional] }
 end
 
