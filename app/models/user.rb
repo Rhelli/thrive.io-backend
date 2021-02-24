@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  has_secure_password
+
+  has_one :individual_personality, dependent: :destroy
+  has_one :house_preference, dependent: :destroy
+  has_many :properties, foreign_key: :owner_id, dependent: :destroy
+
   VALID_NAME_REGEX = /\A[a-zA-Z ,.'-]+\z/
   validates :name, presence: true, length: {
     minimum: 1,
@@ -22,21 +28,23 @@ class User < ApplicationRecord
   # validates :images
   validates :about, length: {
     maximum: 5000,
-    too_long: "%{count} is the maximum character length for your 'About Me' information. Try to keep it short but sweet!"
+    too_long: "%{count} is the maximum character length for your 'About Me'. Try to keep it short but sweet!"
   }
 
   # NOT REQUIRED
-  validates :occupation, inclusion: { in: %w[Any Student Professional] }
-  validates :gender, inclusion: { in: %w[Any Male Female Transgender Other] }
+  validates :occupation, inclusion: { in: %w[Student Professional Other] }
+  validates :gender, inclusion: { in: %w[Male Female Transgender Other] }
   validates :couple, inclusion: { in: %w[Couple Non-Couple] }
-  validates :pets, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }
-  validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }
+  validates :pets, inclusion: { in: %w[Cats Dogs Fish Reptiles Birds Rodents Other None] }
+  validates :smoking, inclusion: { in: %w[Smoking Non-Smoking Occassionally] }
   validates :min_budget, numericality: { only_integer: true, greater_than: 0 }
   validates :max_budget, numericality: { only_integer: true, greater_than: 0 }
   validates :areas_looking, length: {
     minimum: 1,
     maximum: 140,
-    too_short: '%{count} is the minimum number of characters allowed. Please ensure you have listed the areas you are interested in correctly!',
-    too_long: '%{count} is the maximum number of characters allowed. Please reduce the number of areas you have shortlisted!'
+    too_short: '%{count} is the minimum number of characters allowed.
+                Please ensure you have listed the areas you are interested in correctly!',
+    too_long: '%{count} is the maximum number of characters allowed.
+              Please reduce the number of areas you have shortlisted!'
   }
 end

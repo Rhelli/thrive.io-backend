@@ -1,4 +1,6 @@
 class FlatmatePreference < ApplicationRecord
+  belongs_to :property
+
   validates :couples, inclusion: { in: %w[Any Couples Non-Couples] }
   validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }
   validates :pets, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }

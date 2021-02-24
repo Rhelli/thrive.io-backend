@@ -1,4 +1,7 @@
 class AggregatePersonality < ApplicationRecord
+  has_many :individual_personalities
+  belongs_to :property, dependent: :destroy
+
   validate :mbti_types, inclusion: {
     in: %w[
       ISTJ ISTP ISFJ ISFP INFJ

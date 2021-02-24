@@ -1,6 +1,7 @@
 class CreateProperties < ActiveRecord::Migration[6.1]
   def change
     create_table :properties do |t|
+      t.string :owner_id
       t.string :title
       t.string :user_type
       t.text :images

@@ -1,4 +1,8 @@
 class Property < ApplicationRecord
+  belongs_to :user
+  has_one :aggregate_personality, dependent: :destroy
+  has_one :flatmate_preference, dependent: :destroy
+
   validates :title, presence: true, length: {
     minimum: 1,
     maximum: 140,
@@ -27,7 +31,7 @@ class Property < ApplicationRecord
     maximum: 8,
     too_short: '%{count} is the minimum number of characters in any UK postcode. Please ensure you have entered yours correctly.',
     too_long: '%{count} is the maximum number of characters in any UK postcode. Please ensure you have entered yours correctly.'
-  }, format: { with: VALID_ADDRESS_REGEX }
+  }, format: { with: VALID_ADDRESS_REGEX }, uniqueness: { case_sensitive: false }
   validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :deposit, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :bills, presence: true, inclusion: { in: ['Included', 'Not Included'] }

@@ -1,6 +1,7 @@
 class CreateHousePreferences < ActiveRecord::Migration[6.1]
   def change
     create_table :house_preferences do |t|
+      t.integer :user_id
       t.string :smoking
       t.string :pets
       t.string :occupation

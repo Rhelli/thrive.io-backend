@@ -1,4 +1,6 @@
 class HousePreference < ApplicationRecord
+  belongs_to :user
+
   validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }
   validates :pets, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }
   validates :occupation, inclusion: { in: %w[Any Student Professional] }

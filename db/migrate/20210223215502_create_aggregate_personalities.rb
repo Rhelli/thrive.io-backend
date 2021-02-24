@@ -1,6 +1,7 @@
 class CreateAggregatePersonalities < ActiveRecord::Migration[6.1]
   def change
     create_table :aggregate_personalities do |t|
+      t.integer :property_id
       t.text :mbti_types
       t.text :interests
       t.text :religion
