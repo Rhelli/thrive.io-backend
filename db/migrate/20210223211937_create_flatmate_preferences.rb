@@ -4,7 +4,7 @@ class CreateFlatmatePreferences < ActiveRecord::Migration[6.1]
       t.boolean :couples
       t.boolean :smoking
       t.boolean :pets
-      t.string :occupations
+      t.string :occupation
       t.integer :min_age
       t.integer :max_age
       t.string :genders

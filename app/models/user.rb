@@ -27,12 +27,7 @@ class User < ApplicationRecord
     maximum: 5000,
     too_long: "%{count} is the maximum character length for your 'About Me' information. Try to keep it short but sweet!"
   }
-  validates :occupation, presence: true, length: {
-    minimum: 1,
-    maximum: 120,
-    too_short: '%{count} is the minimum length of characters allowed. Please ensure your entered occupation is valid!',
-    too_long: '%{count}, is the maximum length of characters allowed. Please abbreiviate or shorten your occupation title!'
-  }
+  validates :occupation, presence: true, inclusion: { in: %w[Any Student Professional] }
   validates :gender, presence: true
   validates :couple, presence: true
   validates :pets, presence: true
