@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: {
     maximum: 255,
     too_long: '%{count} is the maximum number of characters allowed. Please ensure your email is valid.'
-  }, format: { with: VALID_EMAIL_REGEX}, uniqueness: { case_sensitive: false }
+  }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
 
   validates :password, presence: true, length: {
     minimum: 7,
@@ -31,7 +31,7 @@ class User < ApplicationRecord
   validates :gender, presence: true, inclusion: { in: %w[Any Male Female Transgender Other] }
   validates :couple, presence: true, inclusion: { in: %w[Couple Non-Couple] }
   validates :pets, presence: true, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }
-  validates :smoking, presence: true, inclusion: { in: %w[Any Smoking Non-Smoking]}
+  validates :smoking, presence: true, inclusion: { in: %w[Any Smoking Non-Smoking] }
   validates :min_budget, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :max_budget, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :areas_looking, presence: true, length: {

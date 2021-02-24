@@ -3,7 +3,6 @@ class CreateIndividualPersonalities < ActiveRecord::Migration[6.1]
     create_table :individual_personalities do |t|
       t.string :mbti_type
       t.text :interests
-      t.text :skills
       t.string :religion
       t.string :politics
       t.string :exercise

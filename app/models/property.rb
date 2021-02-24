@@ -45,4 +45,3 @@ class Property < ApplicationRecord
   validates :genders, presence: true, inclusion: { in: %w[Any Male Female Transgender Other] }
   validates :occupations, presence: true, inclusion: { in: %w[Any Student Professional] }
 end
-
