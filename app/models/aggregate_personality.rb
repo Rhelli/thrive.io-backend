@@ -1,12 +1,12 @@
 class AggregatePersonality < ApplicationRecord
-  validate :mbti_types, presence: true, inclusion: {
+  validate :mbti_types, inclusion: {
     in: %w[
       ISTJ ISTP ISFJ ISFP INFJ
       INFP INTJ INTP ESTP ESTJ
       ESFP ESFJ ENFP ENFJ ENTP ENTJ
     ]
   }
-  validate :interests, presence: true, inclusion: {
+  validate :interests, inclusion: {
     in: [
       'Adventure', 'Animals', 'Beach',
       'Beer', 'Books', 'Camping',
@@ -25,10 +25,10 @@ class AggregatePersonality < ApplicationRecord
     ]
   }
 
-  validate :religion, presence: true, inclusion: {
+  validate :religion, inclusion: {
     in: %w[Agnostic Athiest Buddhism Christianity Hinduism Islam Judaism Sikhism Other]
   }
-  validate :politics, presence: true, inclusion: {
+  validate :politics, inclusion: {
     in: %w[
       Anarchist Communist Socialist Social-Democrat Islamist
       Progressive Liberal Libertarian Replublican Republican
@@ -36,9 +36,9 @@ class AggregatePersonality < ApplicationRecord
       Environmentalist Green
     ]
   }
-  validate :exercise, presence: true, inclusion: { in: %w[None Light Moderate Vigorous Extreme] }
-  validate :drinking, presence: true, inclusion: { in: %w[None Occasionally Regularly] }
-  validate :education_level, presence: true, inclusion: {
+  validate :exercise, inclusion: { in: %w[None Light Moderate Vigorous Extreme] }
+  validate :drinking, inclusion: { in: %w[None Occasionally Regularly] }
+  validate :education_level, inclusion: {
     in: ['Primary', 'High School', 'College', 'University', 'Postgraduate']
   }
 end

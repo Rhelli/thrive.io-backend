@@ -33,15 +33,17 @@ class Property < ApplicationRecord
   validates :bills, presence: true, inclusion: { in: ['Included', 'Not Included'] }
   validates :furnished, presence: true, inclusion: { in: %w[Furnished Non-Furnished] }
   validates :parking, presence: true, inclusion: { in: ['Parking', 'No Parking'] }
-  validates :outside_area, presence: true, inclusion: { in: %w[Garden Terrace Patio Balcony Other] }
-  validates :disabled_access, presence: true, inclusion: { in: ['Disabled Access', 'No Disabled Access'] }
-  validates :internet, presence: true, inclusion: { in: ['Internet Included', 'No Internet Included'] }
   validates :occupant_count, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :room_count, presence: true, numericality: { only_integer: true, greater_than: 1 }
-  validates :min_age, presence: true, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
-  validates :max_age, presence: true, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
-  validates :smoking, presence: true, inclusion: { in: %w[Any Smoking Non-Smoking] }
-  validates :pets, presence: true, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }
-  validates :genders, presence: true, inclusion: { in: %w[Any Male Female Transgender Other] }
-  validates :occupations, presence: true, inclusion: { in: %w[Any Student Professional] }
+
+  # NOT REQUIRED
+  validates :outside_area, inclusion: { in: %w[Garden Terrace Patio Balcony Other] }
+  validates :disabled_access, inclusion: { in: ['Disabled Access', 'No Disabled Access'] }
+  validates :internet, inclusion: { in: ['Internet Included', 'No Internet Included'] }
+  validates :min_age, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
+  validates :max_age, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
+  validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }
+  validates :pets, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }
+  validates :genders, inclusion: { in: %w[Any Male Female Transgender Other] }
+  validates :occupations, inclusion: { in: %w[Any Student Professional] }
 end
