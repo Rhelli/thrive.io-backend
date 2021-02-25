@@ -8,7 +8,7 @@ class IndividualPersonality < ApplicationRecord
       INFP INTJ INTP ESTP ESTJ
       ESFP ESFJ ENFP ENFJ ENTP ENTJ
     ]
-  }
+  }, allow_nil: true
 
   validate :interests, inclusion: {
     in: [
@@ -27,11 +27,11 @@ class IndividualPersonality < ApplicationRecord
       'Video Games', 'Walks', 'Wine',
       'Work', 'Writing'
     ]
-  }
+  }, allow_nil: true
 
   validate :religion, inclusion: {
     in: %w[Agnostic Athiest Buddhism Christianity Hinduism Islam Judaism Sikhism Other]
-  }
+  }, allow_nil: true
   validate :politics, inclusion: {
     in: %w[
       Anarchist Communist Socialist Social-Democrat Islamist
@@ -39,10 +39,10 @@ class IndividualPersonality < ApplicationRecord
       Syncretic Democrat Populist Globalist Internationalist
       Environmentalist Green
     ]
-  }
-  validate :exercise, inclusion: { in: %w[None Light Moderate Vigorous Extreme] }
-  validate :drinking, inclusion: { in: %w[None Occasionally Regularly] }
+  }, allow_nil: true
+  validate :exercise, inclusion: { in: %w[None Light Moderate Vigorous Extreme] }, allow_nil: true
+  validate :drinking, inclusion: { in: %w[None Occasionally Regularly] }, allow_nil: true
   validate :education_level, inclusion: {
     in: ['Primary', 'High School', 'College', 'University', 'Postgraduate']
-  }
+  }, allow_nil: true
 end

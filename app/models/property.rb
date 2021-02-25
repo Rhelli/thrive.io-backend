@@ -1,5 +1,5 @@
 class Property < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, foreign_key: :owner_id
   has_one :aggregate_personality, dependent: :destroy
   has_one :flatmate_preference, dependent: :destroy
 
@@ -17,7 +17,7 @@ class Property < ApplicationRecord
     too_long: '%{count}, is the maximum number of characters! Try shortening your description!'
   }
   VALID_ADDRESS_REGEX = /\A[a-zA-Z \d,.'-]+\z/
-  validates :address, presence: true, length: {
+  validates :address, length: {
     minimum: 8,
     maximum: 1000,
     wrong_length: 'The address you have entered is the wrong length. Please ensure you have entered a valid address.'
@@ -37,17 +37,17 @@ class Property < ApplicationRecord
   validates :bills, presence: true, inclusion: { in: ['Included', 'Not Included'] }
   validates :furnished, presence: true, inclusion: { in: %w[Furnished Non-Furnished] }
   validates :parking, presence: true, inclusion: { in: ['Parking', 'No Parking'] }
-  validates :occupant_count, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :occupant_count, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :room_count, presence: true, numericality: { only_integer: true, greater_than: 1 }
 
   # NOT REQUIRED
-  validates :outside_area, inclusion: { in: %w[Garden Terrace Patio Balcony Other] }
-  validates :disabled_access, inclusion: { in: ['Disabled Access', 'No Disabled Access'] }
-  validates :internet, inclusion: { in: ['Internet Included', 'No Internet Included'] }
-  validates :min_age, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
-  validates :max_age, numericality: { only_integer: true, greater_than: 18, less_than: 125 }
-  validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }
-  validates :pets, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }
-  validates :genders, inclusion: { in: %w[Any Male Female Transgender Other] }
-  validates :occupations, inclusion: { in: %w[Any Student Professional] }
+  validates :outside_area, inclusion: { in: %w[Garden Terrace Patio Balcony Other] }, allow_nil: true
+  validates :disabled_access, inclusion: { in: ['Disabled Access', 'No Disabled Access'] }, allow_nil: true
+  validates :internet, inclusion: { in: ['Internet Included', 'No Internet Included'] }, allow_nil: true
+  validates :min_age, numericality: { only_integer: true, greater_than: 18, less_than: 125 }, allow_nil: true
+  validates :max_age, numericality: { only_integer: true, greater_than: 18, less_than: 125 }, allow_nil: true
+  validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }, allow_nil: true
+  validates :pets, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }, allow_nil: true
+  validates :genders, inclusion: { in: %w[Any Male Female Transgender Other] }, allow_nil: true
+  validates :occupations, inclusion: { in: %w[Any Student Professional] }, allow_nil: true
 end

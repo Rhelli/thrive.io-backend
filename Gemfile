@@ -34,6 +34,9 @@ gem 'active_model_serializers'
 # Gem for seed data and restting the ud if the Active Record table to zero
 gem 'activerecord-reset-pk-sequence'
 
+# Hirb gem for generating data tables at the command line
+gem 'hirb'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
