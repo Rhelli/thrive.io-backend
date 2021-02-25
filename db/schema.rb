@@ -10,29 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_170508) do
+ActiveRecord::Schema.define(version: 2021_02_25_232115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "aggregate_personalities", force: :cascade do |t|
-    t.integer "property_id"
-    t.text "mbti_types"
-    t.text "interests"
-    t.text "religion"
-    t.text "politics"
-    t.text "exercise"
-    t.text "drinking"
-    t.text "education_level"
+    t.bigint "individual_personality_id", null: false
+    t.bigint "property_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["individual_personality_id"], name: "index_aggregate_personalities_on_individual_personality_id"
+    t.index ["property_id"], name: "index_aggregate_personalities_on_property_id"
   end
 
   create_table "flatmate_preferences", force: :cascade do |t|
     t.integer "property_id"
     t.string "couples"
     t.string "smoking"
-    t.string "pets"
+    t.text "pets", default: [], array: true
     t.string "occupation"
     t.integer "min_age"
     t.integer "max_age"
@@ -44,7 +40,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_170508) do
   create_table "house_preferences", force: :cascade do |t|
     t.integer "user_id"
     t.string "smoking"
-    t.string "pets"
+    t.text "pets", default: [], array: true
     t.string "occupation"
     t.integer "min_age"
     t.integer "max_age"
@@ -57,9 +53,9 @@ ActiveRecord::Schema.define(version: 2021_02_25_170508) do
     t.integer "user_id"
     t.integer "aggregate_id"
     t.string "mbti_type"
-    t.text "interests"
+    t.text "interests", default: [], array: true
     t.string "religion"
-    t.string "politics"
+    t.string "politics", default: [], array: true
     t.string "exercise"
     t.string "drinking"
     t.string "education_level"
@@ -69,6 +65,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_170508) do
 
   create_table "properties", force: :cascade do |t|
     t.integer "owner_id"
+    t.integer "aggregate_id"
     t.string "title"
     t.text "blurb"
     t.string "address"
@@ -87,9 +84,9 @@ ActiveRecord::Schema.define(version: 2021_02_25_170508) do
     t.integer "min_age"
     t.integer "max_age"
     t.string "smoking"
-    t.string "pets"
-    t.string "genders"
-    t.string "occupations"
+    t.text "pets", default: [], array: true
+    t.string "genders", default: [], array: true
+    t.string "occupations", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -105,19 +102,19 @@ ActiveRecord::Schema.define(version: 2021_02_25_170508) do
     t.string "occupation"
     t.string "gender"
     t.string "couple"
-    t.string "pets"
+    t.text "pets", default: [], array: true
     t.string "smoking"
     t.integer "min_budget"
     t.integer "max_budget"
-    t.text "areas_looking"
+    t.text "areas_looking", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "aggregate_personalities", "individual_personalities"
   add_foreign_key "aggregate_personalities", "properties"
   add_foreign_key "flatmate_preferences", "properties"
   add_foreign_key "house_preferences", "users"
-  add_foreign_key "individual_personalities", "aggregate_personalities", column: "aggregate_id"
   add_foreign_key "individual_personalities", "users"
   add_foreign_key "properties", "users", column: "owner_id"
 end

@@ -2,6 +2,7 @@ class CreateProperties < ActiveRecord::Migration[6.1]
   def change
     create_table :properties do |t|
       t.integer :owner_id
+      t.integer :aggregate_id
       t.string :title
       t.text :blurb
       t.string :address
@@ -20,9 +21,9 @@ class CreateProperties < ActiveRecord::Migration[6.1]
       t.integer :min_age
       t.integer :max_age
       t.string :smoking
-      t.string :pets
-      t.string :genders
-      t.string :occupations
+      t.text :pets, array: true, default: []
+      t.string :genders, array: true, default: []
+      t.string :occupations, array: true, default: []
 
       t.timestamps
     end

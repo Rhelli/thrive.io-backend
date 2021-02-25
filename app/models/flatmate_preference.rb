@@ -1,5 +1,5 @@
 class FlatmatePreference < ApplicationRecord
-  belongs_to :property
+  belongs_to :property, foreign_key: :property_id
 
   validates :couples, inclusion: { in: %w[Any Couples Non-Couples] }, allow_nil: true
   validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }, allow_nil: true

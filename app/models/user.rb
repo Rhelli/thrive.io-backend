@@ -1,10 +1,11 @@
 class User < ApplicationRecord
   attr_accessor :password
+
   validates_confirmation_of :password
   before_save :encrypt_password
 
-  has_one :individual_personality, dependent: :destroy
-  has_one :house_preference, dependent: :destroy
+  has_one :individual_personality, foreign_key: :user_id, dependent: :destroy
+  has_one :house_preference, foreign_key: :user_id, dependent: :destroy
   has_many :properties, foreign_key: :owner_id, dependent: :destroy
 
   VALID_NAME_REGEX = /\A[a-zA-Z \d,.'-]+\z/

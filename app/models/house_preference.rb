@@ -1,5 +1,5 @@
 class HousePreference < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, foreign_key: :user_id
 
   validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }, allow_nil: true
   validates :pets, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }, allow_nil: true

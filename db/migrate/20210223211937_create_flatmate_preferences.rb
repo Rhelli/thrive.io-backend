@@ -4,7 +4,7 @@ class CreateFlatmatePreferences < ActiveRecord::Migration[6.1]
       t.integer :property_id
       t.string :couples
       t.string :smoking
-      t.string :pets
+      t.text :pets, array: true, default: []
       t.string :occupation
       t.integer :min_age
       t.integer :max_age

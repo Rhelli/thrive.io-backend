@@ -1,6 +1,8 @@
 class Property < ApplicationRecord
   belongs_to :user, foreign_key: :owner_id
-  has_one :aggregate_personality, dependent: :destroy
+  has_one :aggregate_personality, foreign_key: :property_id
+  has_many :individual_personalities, through: :aggregate_personalities, foreign_key: :individual_personality_id
+
   has_one :flatmate_preference, dependent: :destroy
 
   validates :title, presence: true, length: {
@@ -38,7 +40,7 @@ class Property < ApplicationRecord
   validates :furnished, presence: true, inclusion: { in: %w[Furnished Non-Furnished] }
   validates :parking, presence: true, inclusion: { in: ['Parking', 'No Parking'] }
   validates :occupant_count, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :room_count, presence: true, numericality: { only_integer: true, greater_than: 1 }
+  validates :room_count, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
   # NOT REQUIRED
   validates :outside_area, inclusion: { in: %w[Garden Terrace Patio Balcony Other] }, allow_nil: true

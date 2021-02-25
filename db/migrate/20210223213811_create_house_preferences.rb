@@ -3,7 +3,7 @@ class CreateHousePreferences < ActiveRecord::Migration[6.1]
     create_table :house_preferences do |t|
       t.integer :user_id
       t.string :smoking
-      t.string :pets
+      t.text :pets, array: true, default: []
       t.string :occupation
       t.integer :min_age
       t.integer :max_age

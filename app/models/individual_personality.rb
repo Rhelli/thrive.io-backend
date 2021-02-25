@@ -1,8 +1,10 @@
 class IndividualPersonality < ApplicationRecord
-  belongs_to :user, dependent: :destroy
-  belongs_to :aggregate_personality
+  belongs_to :user, foreign_key: :user_id
+  has_one :property, through: :aggregate_personalities, foreign_key: :property_id
+  has_one :aggregate_personality, foreign_key: :individual_personality_id
 
-  validate :mbti_type, inclusion: {
+
+  validates :mbti_type, inclusion: {
     in: %w[
       ISTJ ISTP ISFJ ISFP INFJ
       INFP INTJ INTP ESTP ESTJ
@@ -10,7 +12,7 @@ class IndividualPersonality < ApplicationRecord
     ]
   }, allow_nil: true
 
-  validate :interests, inclusion: {
+  validates :interests, inclusion: {
     in: [
       'Adventure', 'Animals', 'Beach',
       'Beer', 'Books', 'Camping',
@@ -29,10 +31,10 @@ class IndividualPersonality < ApplicationRecord
     ]
   }, allow_nil: true
 
-  validate :religion, inclusion: {
+  validates :religion, inclusion: {
     in: %w[Agnostic Athiest Buddhism Christianity Hinduism Islam Judaism Sikhism Other]
   }, allow_nil: true
-  validate :politics, inclusion: {
+  validates :politics, inclusion: {
     in: %w[
       Anarchist Communist Socialist Social-Democrat Islamist
       Progressive Liberal Libertarian Replublican Republican
@@ -40,9 +42,9 @@ class IndividualPersonality < ApplicationRecord
       Environmentalist Green
     ]
   }, allow_nil: true
-  validate :exercise, inclusion: { in: %w[None Light Moderate Vigorous Extreme] }, allow_nil: true
-  validate :drinking, inclusion: { in: %w[None Occasionally Regularly] }, allow_nil: true
-  validate :education_level, inclusion: {
+  validates :exercise, inclusion: { in: %w[None Light Moderate Vigorous Extreme] }, allow_nil: true
+  validates :drinking, inclusion: { in: %w[None Occasionally Regularly] }, allow_nil: true
+  validates :education_level, inclusion: {
     in: ['Primary', 'High School', 'College', 'University', 'Postgraduate']
   }, allow_nil: true
 end

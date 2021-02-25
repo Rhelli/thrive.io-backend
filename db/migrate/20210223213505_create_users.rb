@@ -11,11 +11,11 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :occupation
       t.string :gender
       t.string :couple
-      t.string :pets
+      t.text :pets, array: true, default: []
       t.string :smoking
       t.integer :min_budget
       t.integer :max_budget
-      t.text :areas_looking
+      t.text :areas_looking, array: true, default: []
 
       t.timestamps
     end
