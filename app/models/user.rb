@@ -20,6 +20,11 @@ class User < ApplicationRecord
     maximum: 255,
     too_long: '%{count} is the maximum number of characters allowed. Please ensure your email is valid.'
   }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+  VALID_PASSWORD_REGEX = /\A(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}\z/
+  validates :password, format: {
+    with: VALID_PASSWORD_REGEX,
+    message: 'Password must be a minimum of 8 characters, with numbers and letters present.'
+  }
   validates :user_type, presence: true, inclusion: { in: %w[Looking Advertising] }
   validates :avatar, presence: true
   # validates :images
