@@ -1,6 +1,6 @@
 class Property < ApplicationRecord
   belongs_to :user, foreign_key: :owner_id
-  has_one :aggregate_personality, foreign_key: :property_id
+  has_many :aggregate_personality, foreign_key: :property_id
   has_many :individual_personalities, through: :aggregate_personalities, foreign_key: :individual_personality_id
 
   has_one :flatmate_preference, dependent: :destroy

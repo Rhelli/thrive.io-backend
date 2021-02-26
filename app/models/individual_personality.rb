@@ -1,6 +1,6 @@
 class IndividualPersonality < ApplicationRecord
   belongs_to :user, foreign_key: :user_id
-  has_one :property, through: :aggregate_personalities, #foreign_key: :property_id
+  has_one :property, through: :aggregate_personalities, foreign_key: :property_id
   has_one :aggregate_personality, foreign_key: :individual_personality_id
 
 

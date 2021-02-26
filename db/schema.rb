@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_232115) do
+ActiveRecord::Schema.define(version: 2021_02_26_162858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_232115) do
     t.string "genders"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["property_id"], name: "index_flatmate_preferences_on_property_id"
   end
 
   create_table "house_preferences", force: :cascade do |t|
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_232115) do
     t.string "genders"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_house_preferences_on_user_id"
   end
 
   create_table "individual_personalities", force: :cascade do |t|
@@ -61,6 +63,8 @@ ActiveRecord::Schema.define(version: 2021_02_25_232115) do
     t.string "education_level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["aggregate_id"], name: "index_individual_personalities_on_aggregate_id"
+    t.index ["user_id"], name: "index_individual_personalities_on_user_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -89,6 +93,8 @@ ActiveRecord::Schema.define(version: 2021_02_25_232115) do
     t.string "occupations", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["aggregate_id"], name: "index_properties_on_aggregate_id"
+    t.index ["owner_id"], name: "index_properties_on_owner_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -109,6 +115,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_232115) do
     t.text "areas_looking", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email"
   end
 
   add_foreign_key "aggregate_personalities", "individual_personalities"
