@@ -3,9 +3,9 @@ FactoryBot.define do
     couples { false }
     smoking { false }
     pets { false }
-    occupations { "MyString" }
+    occupations { 'MyString' }
     min_age { 1 }
     max_age { 1 }
-    genders { "MyString" }
+    genders { 'MyString' }
   end
 end

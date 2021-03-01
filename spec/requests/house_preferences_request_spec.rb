@@ -1,5 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe "HousePreferences", type: :request do
-
+RSpec.describe 'HousePreferences', type: :request do
 end

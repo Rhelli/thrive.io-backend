@@ -1,10 +1,11 @@
 class CreateFlatmatePreferences < ActiveRecord::Migration[6.1]
   def change
     create_table :flatmate_preferences do |t|
-      t.boolean :couples
-      t.boolean :smoking
-      t.boolean :pets
-      t.string :occupations
+      t.integer :property_id
+      t.string :couples
+      t.string :smoking
+      t.text :pets, array: true, default: []
+      t.string :occupation
       t.integer :min_age
       t.integer :max_age
       t.string :genders

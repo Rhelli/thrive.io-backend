@@ -1,0 +1,7 @@
+User.create!(name: 'Jimbo', email: 'jimbo@email.com', user_type: 'Advertising', avatar: 'someavatar.com', about: 'some information')
+
+Property.create!(owner_id: 1, title: 'Some Property', blurb: 'Some desc', address: 'Some Address', town: 'Somewhere', postcode: '123 DCDD', price: 1200, deposit: 1200, bills: 'Included', furnished: 'Furnished', parking: 'No Parking', occupant_count: 2, room_count: 4)
+
+IndividualPersonality.create!(user_id: 1, mbti_type: 'INTJ', interests: 'Beer', religion: 'Agnostic', politics: 'Democrat', exercise: 'Extreme', drinking: 'Occasionally', education_level: 'Primary')
+
+AggregatePersonality.create!(property_id: 1, mbti_types: 'ISTJ', interests: ['Beer', 'Eating Out'], religion: 'Athiest', politics: 'Democrat', exercise: 'Moderate', drinking: 'Regularly', education_level: 'College')
