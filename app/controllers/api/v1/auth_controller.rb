@@ -1,4 +1,5 @@
 class Api::V1::AuthController < ApplicationController
+  before_action :authorized, only: [:auto_login]
   skip_before_action :authorized, only: [:create]
 
   def create
@@ -9,6 +10,10 @@ class Api::V1::AuthController < ApplicationController
     else
       render json: { message: 'Invalid email address or password. Please try again.' }, status: :unauthorized
     end
+  end
+
+  def auto_login
+    render json: @user
   end
 
   private
