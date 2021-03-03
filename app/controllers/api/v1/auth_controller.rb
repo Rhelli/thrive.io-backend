@@ -1,6 +1,6 @@
 class Api::V1::AuthController < ApplicationController
-  before_action :authorized, only: [:auto_login]
   skip_before_action :authorized, only: [:create]
+  before_action :authorized, only: [:auto_login]
 
   def create
     @user = User.authenticate(user_login_params[:email], user_login_params[:password])
