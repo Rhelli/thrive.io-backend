@@ -45,4 +45,14 @@ class Api::V1::PropertiesController < ApplicationController
       render json: { status: 500, errors: ['Something went wrong. Please try again later.'] }
     end
   end
+
+  private
+
+  def property_params
+    params.require(:property).permit(
+      :id, :title, :user_type, :images, :blurb, :type, :address, :postcode, :price, :deposit, :bills,
+      :furnished, :parking, :outside_area, :disabled_access, :internet, :occupant_count, :room_count,
+      :min_age, :max_age, :smoking, :pets, :genders, :occupations
+    )
+  end
 end
