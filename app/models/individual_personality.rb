@@ -3,7 +3,6 @@ class IndividualPersonality < ApplicationRecord
   has_one :property, through: :aggregate_personalities, foreign_key: :property_id
   has_one :aggregate_personality, foreign_key: :individual_personality_id
 
-
   validates :mbti_type, inclusion: {
     in: %w[
       ISTJ ISTP ISFJ ISFP INFJ

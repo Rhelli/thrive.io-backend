@@ -26,7 +26,6 @@ class User < ApplicationRecord
     message: 'Password must be a minimum of 8 characters, with numbers and letters present.'
   }
   validates :user_type, presence: true, inclusion: { in: %w[Looking Advertising] }
-  validates :avatar, presence: true
   # validates :images
   validates :about, length: {
     maximum: 5000,
