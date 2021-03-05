@@ -38,8 +38,8 @@ class User < ApplicationRecord
   validates :couple, inclusion: { in: %w[Couple Non-Couple] }, allow_nil: true
   validates :pets, inclusion: { in: %w[Cats Dogs Fish Reptiles Birds Rodents Other None] }, allow_nil: true
   validates :smoking, inclusion: { in: %w[Smoking Non-Smoking Occassionally] }, allow_nil: true
-  validates :min_budget, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
-  validates :max_budget, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
+  validates :min_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
+  validates :max_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :areas_looking, length: {
     maximum: 140,
     too_long: '%{count} is the maximum number of characters allowed.
