@@ -46,6 +46,9 @@ class User < ApplicationRecord
               Please reduce the number of areas you have shortlisted!'
   }, allow_nil: true
 
+  scope :looking_users, ->(user) { user.where('user_type = Looking').order(created_at: :desc) }
+  scope :advertising_user, ->(user) { user.where('user_type = Advertising').order(created_at: :desc) }
+
   def encrypt_password
     self.password_salt = BCrypt::Engine.generate_salt
     self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
