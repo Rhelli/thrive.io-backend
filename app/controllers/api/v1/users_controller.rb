@@ -2,13 +2,13 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create, :index]
 
   def profile
-    render json: { user: UserSerializer.new(current_user) }, status: :accepted
+    render json: UserSerializer.new(current_user), status: :accepted
   end
 
   def index
     @users = User.all
     if @users
-      render json: { users: @users }
+      render json: @users, each_serializer: UserSerializer
     else
       render json: { status: 500, errors: ['No users found.'] }
     end

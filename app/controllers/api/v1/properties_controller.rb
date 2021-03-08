@@ -4,7 +4,7 @@ class Api::V1::PropertiesController < ApplicationController
   def index
     @properties = Property.all
     if @properties
-      render json: { propertiesList: @properties }
+      render json: @properties, each_serializer: PropertySerializer
     else
       render json: { status: 500, errors: ['Properties not found.'] }
     end
