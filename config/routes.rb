@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get '/flatmates', to: 'users#index'
       get '/auto-login', to: 'auth#auto_login'
       post '/signin', to: 'auth#create'
-      get '/flatmate/:id', to: 'user#profile'
+      get '/myaccount', to: 'user#profile'
       resources :properties, only: [:index]
       post '/new-property', to: 'properties#create'
       get '/property/:id', to: 'properties#show'
