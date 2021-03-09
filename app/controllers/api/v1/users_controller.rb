@@ -6,7 +6,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    users = User.all
+    @users = users.where(user_type: 'Looking').order(created_at: :asc)
     if @users
       render json: @users, each_serializer: UserSerializer
     else
