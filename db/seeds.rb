@@ -26,6 +26,39 @@ def areas_looking_gen
   areas
 end
 
+def array_gen(type, amount=nil)
+  array = [];
+  if amount
+    amount.times do
+      array.push(type.sample)
+    end
+  else
+    rand(1..3).times do
+      array.push(type.sample)
+    end
+  end
+  return array;
+end
+
+def pets_array_reducer(arr)
+  if arr.include?('None')
+    return ['None']
+  else
+    return arr.uniq
+  end
+end
+
+
+pets_array = [
+  'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
+  'Reptiles', 'Birds', 'Rodents', 'Other', 'None', 'None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None'
+]
+gender_array  = ['Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Transgender']
+occupations_array = ['Professional', 'Professional', 'Student']
+
 30.times do
   name = Faker::Name.first_name
   email = Faker::Internet.email
@@ -34,7 +67,12 @@ end
   about = Faker::Lorem.sentence
   avatar = 'someimageurl.com'
   occupation = ['Professional', 'Student', 'Professional'].sample
-  gender  = ['Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Transgender'].sample
+  smoking = ['Smoking', 'Non-Smoking', 'Non-Smoking', 'Occassionally'].sample
+  gender  = [
+    'Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Transgender',
+    'Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Male', 'Male',
+    'Female', 'Female', 'Female', 'Male',
+  ].sample
   couple = ['Non-Couple', 'Non-Couple', 'Non-Couple', 'Non-Couple', 'Non-Couple', 'Non-Couple', 'Couple'].sample
   pets = [
     'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
@@ -42,7 +80,6 @@ end
     'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None',
     'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None'
   ].sample
-  smoking = ['Smoking', 'Non-Smoking', 'Non-Smoking', 'Occassionally'].sample
   min_budget = budget_gen[0]
   max_budget = budget_gen[1]
   areas_looking = areas_looking_gen
@@ -57,8 +94,8 @@ i = 1
 postcodes = ['', 'SW18 9NB', 'SW6 1PW', 'SW7 5EZ', 'SW9 8UB', 'NW7 2QN', 'NW3 1EA', 'NE37 1SY', 'NE24 4GB', 'L36 9TL', 'L3 6LB']
 10.times do
   owner_id = i;
-  title = Faker::Lorem.sentence(word_count: rand(2..6))
-  blurb = Faker::Lorem.sentence
+  title = Faker::Lorem.sentence(word_count: rand(2..10))
+  blurb = Faker::Lorem.sentence(word_count: rand(10..40))
   address = Faker::Address.street_address
   town = Faker::Address.city
   postcode = postcodes[i]
@@ -75,22 +112,14 @@ postcodes = ['', 'SW18 9NB', 'SW6 1PW', 'SW7 5EZ', 'SW9 8UB', 'NW7 2QN', 'NW3 1E
   min_age = age_range_gen[0]
   max_age = age_range_gen[1]
   smoking = ['Any', 'Smoking', 'Non-Smoking'].sample
-  pets = [
-    'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
-    'Reptiles', 'Birds', 'Rodents', 'Other', 'None', 'None', 'None', 'None',
-    'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None',
-    'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None'
-  ].sample
-  gender = ['Any', 'Male', 'Female', 'Male', 'Female', 'Male', 'Female', 'Male', 'Female',
-            'Male', 'Female', 'Male', 'Female', 'Transgender', 'Other'
-  ].sample
-  occupations = ['Professional', 'Any', 'Student'].sample
+  pets = pets_array_reducer(array_gen(pets_array))
+  gender = array_gen(gender_array, occupant_count)
+  occupations = array_gen(occupations_array, occupant_count)
   Property.create!(
     owner_id: owner_id, title: title, blurb: blurb, address: address, town: town, postcode: postcode,
     price: price, deposit: deposit, bills: bills, furnished: furnished, parking: parking, occupant_count: occupant_count,
     room_count: room_count, outside_area: outside_area, disabled_access: disabled_access, internet: internet, min_age: min_age,
-    max_age: max_age, smoking: smoking, pets: pets, genders: gender
+    max_age: max_age, smoking: smoking, pets: pets, genders: gender, occupations: occupations
   )
   i += 1
 end
-
