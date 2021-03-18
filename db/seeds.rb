@@ -1,7 +1,125 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+def budget_gen
+  min = 0
+  max = 0
+  until min < max
+    min = (rand(700..1600)/25).ceil * 25
+    max = (rand(700..1600)/25).ceil * 25
+  end
+  return [min, max]
+end
+
+def age_range_gen
+  min = 0
+  max = 0
+  until min < max
+    min = rand(18..60)
+    max = rand(18..60)
+  end
+  return [min, max]
+end
+
+def areas_looking_gen
+  areas = []
+  rand(1..5).times do
+    areas.push(Faker::Address.city)
+  end
+  areas
+end
+
+def array_gen(type, amount=nil)
+  array = [];
+  if amount
+    amount.times do
+      array.push(type.sample)
+    end
+  else
+    rand(1..3).times do
+      array.push(type.sample)
+    end
+  end
+  return array;
+end
+
+def pets_array_reducer(arr)
+  if arr.include?('None')
+    return ['None']
+  else
+    return arr.uniq
+  end
+end
+
+
+pets_array = [
+  'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
+  'Reptiles', 'Birds', 'Rodents', 'Other', 'None', 'None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None'
+]
+gender_array  = ['Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Transgender']
+occupations_array = ['Professional', 'Professional', 'Student']
+
+30.times do
+  name = Faker::Name.first_name
+  email = Faker::Internet.email
+  password = 'password1'
+  user_type = ['Looking', 'Advertising'].sample
+  about = Faker::Lorem.sentence
+  avatar = 'someimageurl.com'
+  occupation = ['Professional', 'Student', 'Professional'].sample
+  smoking = ['Smoking', 'Non-Smoking', 'Non-Smoking', 'Occassionally'].sample
+  gender  = [
+    'Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Transgender',
+    'Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Male', 'Male',
+    'Female', 'Female', 'Female', 'Male',
+  ].sample
+  couple = ['Non-Couple', 'Non-Couple', 'Non-Couple', 'Non-Couple', 'Non-Couple', 'Non-Couple', 'Couple'].sample
+  pets = [
+    'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
+    'Reptiles', 'Birds', 'Rodents', 'Other', 'None', 'None', 'None', 'None',
+    'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None',
+    'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None'
+  ].sample
+  min_budget = budget_gen[0]
+  max_budget = budget_gen[1]
+  areas_looking = areas_looking_gen
+  User.create!(
+    name:name, email: email, password: password, user_type: user_type, about: about, avatar: avatar,
+    occupation: occupation, gender: gender, couple: couple, pets: pets, smoking: smoking, min_budget: min_budget,
+    max_budget: max_budget, areas_looking: areas_looking
+  )
+end
+
+i = 1
+postcodes = ['', 'SW18 9NB', 'SW6 1PW', 'SW7 5EZ', 'SW9 8UB', 'NW7 2QN', 'NW3 1EA', 'NE37 1SY', 'NE24 4GB', 'L36 9TL', 'L3 6LB']
+10.times do
+  owner_id = i;
+  title = Faker::Lorem.sentence(word_count: rand(2..10))
+  blurb = Faker::Lorem.sentence(word_count: rand(10..40))
+  address = Faker::Address.street_address
+  town = Faker::Address.city
+  postcode = postcodes[i]
+  price = (rand(700..1600)/25).ceil * 25
+  deposit = rand((price / 2)..price)
+  bills = ['Included', 'Included', 'Not Included'].sample
+  furnished = ['Furnished', 'Furnished', 'Furnished', 'Furnished', 'Non-Furnished'].sample
+  parking = ['Parking', 'No Parking'].sample
+  occupant_count = rand(1..8)
+  room_count = rand((occupant_count + 1)..(occupant_count + 5))
+  outside_area = ['Garden', 'Terrace', 'Patio', 'Balcony', 'Other'].sample
+  disabled_access = ['Disabled Access', 'No Disabled Access'].sample
+  internet = ['Internet Included', 'No Internet Included'].sample
+  min_age = age_range_gen[0]
+  max_age = age_range_gen[1]
+  smoking = ['Any', 'Smoking', 'Non-Smoking'].sample
+  pets = pets_array_reducer(array_gen(pets_array))
+  gender = array_gen(gender_array, occupant_count)
+  occupations = array_gen(occupations_array, occupant_count)
+  Property.create!(
+    owner_id: owner_id, title: title, blurb: blurb, address: address, town: town, postcode: postcode,
+    price: price, deposit: deposit, bills: bills, furnished: furnished, parking: parking, occupant_count: occupant_count,
+    room_count: room_count, outside_area: outside_area, disabled_access: disabled_access, internet: internet, min_age: min_age,
+    max_age: max_age, smoking: smoking, pets: pets, genders: gender, occupations: occupations
+  )
+  i += 1
+end
