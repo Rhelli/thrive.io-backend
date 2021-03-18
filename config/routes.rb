@@ -6,13 +6,13 @@ Rails.application.routes.draw do
       get '/auto-login', to: 'auth#auto_login'
       post '/signin', to: 'auth#create'
       get '/myaccount', to: 'users#profile'
-      post '/myaccount/settings/edit-profile', to: 'users#update',
-      post '/myaccount/settings/delete-profile', to: 'users#destroy',
+      post '/myaccount/settings/edit-profile', to: 'users#update'
+      delete '/myaccount/settings/delete-profile', to: 'users#destroy'
       resources :properties, only: [:index]
       post '/new-property', to: 'properties#create'
       get '/property/:id', to: 'properties#show'
       post '/edit-property/:id', to: 'properties#update'
-      post '/delete-property/:id', to: 'properties#destroy'
+      delete '/delete-property/:id', to: 'properties#destroy'
     end
   end
 end

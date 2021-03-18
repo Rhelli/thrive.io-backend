@@ -47,11 +47,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(user_params[:id])
-    if @user.destroy
+    @user = User.find_by(email: user_params[:email])
+    if @user.destroy!
       render json: { message: 'Account deleted successfully.', status: :ok }
     else
-      render json: { error: ['An error occureed whilst deleting this account. Please try again.'] }, status: 500
+      render json: { error: ['An error occurred whilst deleting this account. Please try again.'] }, status: 500
     end
   end
 
