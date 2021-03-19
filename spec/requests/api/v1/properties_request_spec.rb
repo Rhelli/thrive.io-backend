@@ -1,5 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Properties", type: :request do
-
+RSpec.describe 'Api::V1::Properties', type: :request do
 end
