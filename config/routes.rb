@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create]
       get '/flatmates', to: 'users#index'
       get '/auto-login', to: 'auth#auto_login'
+      post '/authenticate', to: 'auth#check_credentials'
       post '/signin', to: 'auth#create'
       get '/myaccount', to: 'users#profile'
       put '/myaccount/settings/edit-profile', to: 'users#update'

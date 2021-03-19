@@ -38,7 +38,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(email: user_params[:email])
+    @user = User.find(user_params[:id])
     if @user.update!(user_params)
       render json: current_user, serializer: UserSerializer, status: :accepted
     else
@@ -59,7 +59,7 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :name, :email, :password, :user_type, :occupation, :about, :gender, :couple,
+      :id, :name, :email, :password, :user_type, :occupation, :about, :gender, :couple,
       :smoking, :min_budget, :max_budget, areas_looking: [], pets: []
     )
   end
