@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :index]
+  skip_before_action :authorized, only: %i[create index]
 
   def profile
     render json: current_user, serializer: UserSerializer, status: :accepted
@@ -39,7 +39,7 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     @user = User.find(user_params[:id])
-    if @user.update(user_params)
+    if @user.update!(user_params)
       render json: current_user, serializer: UserSerializer, status: :accepted
     else
       render json: { errors: ['Failed to update user! Please try again.'] }, status: :not_acceptable
@@ -47,17 +47,20 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(user_params[:id])
-    if @user.destroy
+    @user = User.find_by(email: user_params[:email])
+    if @user.destroy!
       render json: { message: 'Account deleted successfully.', status: :ok }
     else
-      render json: { error: ['An error occureed whilst deleting this account. Please try again.'] }, status: 500
+      render json: { error: ['An error occurred whilst deleting this account. Please try again.'] }, status: 500
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :user_type)
+    params.require(:user).permit(
+      :id, :name, :email, :password, :user_type, :occupation, :about, :gender, :couple,
+      :smoking, :min_budget, :max_budget, areas_looking: [], pets: []
+    )
   end
 end

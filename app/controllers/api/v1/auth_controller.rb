@@ -16,9 +16,18 @@ class Api::V1::AuthController < ApplicationController
     render json: @user
   end
 
+  def check_credentials
+    @user = User.authenticate(user_login_params[:email], user_login_params[:password])
+    if @user
+      render json: { message: 'Authenticated' }, status: :accepted
+    else
+      render json: { error: ['Invalid login credentials. Please try again.'] }, status: :unauthorized
+    end
+  end
+
   private
 
   def user_login_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :id)
   end
 end

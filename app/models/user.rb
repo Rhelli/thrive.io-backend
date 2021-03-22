@@ -23,7 +23,8 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}\z/
   validates :password, format: {
     with: VALID_PASSWORD_REGEX,
-    message: 'Password must be a minimum of 8 characters, with numbers and letters present.'
+    message: 'Password must be a minimum of 8 characters, with numbers and letters present.',
+    if: :password
   }
   validates :user_type, presence: true, inclusion: { in: %w[Looking Advertising] }
   # validates :images
