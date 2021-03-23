@@ -15,6 +15,8 @@ class User < ApplicationRecord
     too_short: '%{count} is the minimum number of characters allowed.',
     too_long: '%{count} is the maximum number of characters allowed, please shorten your name!'
   }, format: { with: VALID_NAME_REGEX }
+  # validates :dob, presence: true
+  # validate :validate_age
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: {
     maximum: 255,
@@ -46,6 +48,7 @@ class User < ApplicationRecord
     too_long: '%{count} is the maximum number of characters allowed.
               Please reduce the number of areas you have shortlisted!'
   }, allow_nil: true
+  validates :advertiser_type, inclusion: { in: %w[Flatmate Landlord] }, allow_nil: true
 
   def encrypt_password
     return unless password.present? && !password.blank?
@@ -60,4 +63,10 @@ class User < ApplicationRecord
 
     nil
   end
+
+  # def validate_age
+  #   if dob.present? && dov > 18.years.ago.to_d
+  #     errors.add(:dob, 'You must be over 18 to register for an account.')
+  #   end
+  # end
 end
