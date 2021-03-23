@@ -48,6 +48,8 @@ class User < ApplicationRecord
   }, allow_nil: true
 
   def encrypt_password
+    return unless password.present? && !password.blank?
+
     self.password_salt = BCrypt::Engine.generate_salt
     self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
   end
