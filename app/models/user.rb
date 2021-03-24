@@ -15,8 +15,8 @@ class User < ApplicationRecord
     too_short: '%{count} is the minimum number of characters allowed.',
     too_long: '%{count} is the maximum number of characters allowed, please shorten your name!'
   }, format: { with: VALID_NAME_REGEX }
-  # validates :dob, presence: true
-  # validate :validate_age
+  validates :dob, presence: true
+  validate :validate_age
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: {
     maximum: 255,
@@ -64,9 +64,9 @@ class User < ApplicationRecord
     nil
   end
 
-  # def validate_age
-  #   if dob.present? && dov > 18.years.ago.to_d
-  #     errors.add(:dob, 'You must be over 18 to register for an account.')
-  #   end
-  # end
+  def validate_age
+    if dob.present? && dob > 18.years.ago
+      errors.add(:dob, 'You must be over 18 to register for an account.')
+    end
+  end
 end
