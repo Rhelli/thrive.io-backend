@@ -36,11 +36,11 @@ class User < ApplicationRecord
   }
 
   # NOT REQUIRED
-  validates :occupation, inclusion: { in: %w[Student Professional Other] }, allow_nil: true
-  validates :gender, inclusion: { in: %w[Male Female Transgender Other] }, allow_nil: true
-  validates :couple, inclusion: { in: %w[Couple Non-Couple] }, allow_nil: true
+  validates :occupation, inclusion: { in: ['Student', 'Professional', 'Other', ''] }, allow_nil: true
+  validates :gender, inclusion: { in: ['Male', 'Female', 'Transgender', 'Other', ''] }, allow_nil: true
+  validates :couple, inclusion: { in: ['Couple', 'Non-Couple', ''] }, allow_nil: true
   validates :pets, inclusion: { in: %w[Cats Dogs Fish Reptiles Birds Rodents Other None] }, allow_nil: true
-  validates :smoking, inclusion: { in: %w[Smoking Non-Smoking Occassionally] }, allow_nil: true
+  validates :smoking, inclusion: { in: ['Smoking', 'Non-Smoking', 'Occassionally', ''] }, allow_nil: true
   validates :min_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :max_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :areas_looking, length: {
@@ -48,7 +48,7 @@ class User < ApplicationRecord
     too_long: '%{count} is the maximum number of characters allowed.
               Please reduce the number of areas you have shortlisted!'
   }, allow_nil: true
-  validates :advertiser_type, inclusion: { in: %w[Flatmate Landlord] }, allow_nil: true
+  validates :advertiser_type, inclusion: { in: ['Flatmate', 'Landlord', ''] }, allow_nil: true
 
   def encrypt_password
     return unless password.present? && !password.blank?
@@ -70,3 +70,5 @@ class User < ApplicationRecord
     end
   end
 end
+
+

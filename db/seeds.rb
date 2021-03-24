@@ -1,3 +1,21 @@
+User.create!(
+  name: 'Jim',
+  email: 'jim@email.com',
+  password: 'password1',
+  user_type: 'Advertising',
+  advertiser_type: 'Flatmate',
+  dob: '1980-12-12',
+  about: "Hi! My name is Jim and I'm a retired Biology Teacher and part time trapeze artist. Recently my house was infested with termites and I lost everything! Now looking for a new house",
+  occupation: 'Professional',
+  gender: 'Male',
+  couple: 'Non-Couple',
+  pets: ['Cats', 'Dogs', 'Fish'],
+  smoking: 'Non-Smoking',
+  min_budget: 1500,
+  max_budget: 2500,
+  areas_looking: ['Clapham Common', 'Wimbledon', 'Mt.Everest', 'Waterloo'],
+)
+
 def budget_gen
   min = 0
   max = 0
@@ -48,6 +66,14 @@ def pets_array_reducer(arr)
   end
 end
 
+def advertiserTypeGen(type)
+  if type == 'Advertising'
+    return ['Flatmate', 'Landlord', 'Flatmate', 'Flatmate'].sample
+  else
+    return nil
+  end
+end
+
 
 pets_array = [
   'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
@@ -64,6 +90,8 @@ occupations_array = ['Professional', 'Professional', 'Student']
   email = Faker::Internet.email
   password = 'password1'
   user_type = ['Looking', 'Advertising'].sample
+  advertiser_type = advertiserTypeGen(user_type)
+  dob = Faker::Date.between(from: '1920-01-01', to: '2002-01-01')
   about = Faker::Lorem.sentence
   avatar = 'someimageurl.com'
   occupation = ['Professional', 'Student', 'Professional'].sample
@@ -86,7 +114,7 @@ occupations_array = ['Professional', 'Professional', 'Student']
   User.create!(
     name:name, email: email, password: password, user_type: user_type, about: about, avatar: avatar,
     occupation: occupation, gender: gender, couple: couple, pets: pets, smoking: smoking, min_budget: min_budget,
-    max_budget: max_budget, areas_looking: areas_looking
+    max_budget: max_budget, areas_looking: areas_looking, advertiser_type: advertiser_type, dob: dob,
   )
 end
 
