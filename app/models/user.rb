@@ -48,7 +48,7 @@ class User < ApplicationRecord
     too_long: '%{count} is the maximum number of characters allowed.
               Please reduce the number of areas you have shortlisted!'
   }, allow_nil: true
-  validates :advertiser_type, inclusion: { in: ['Flatmate', 'Landlord', ''] }, allow_nil: true
+  validates :advertiser_type, inclusion: { in: ['Flatmate', 'Landlord'] }, allow_nil: true
 
   def encrypt_password
     return unless password.present? && !password.blank?

@@ -10,6 +10,16 @@ class Api::V1::PropertiesController < ApplicationController
     end
   end
 
+  def advertiser_index
+    properties = Property.all
+    @properties = properties.where(owner_id: current_user.id).order(created_at: :asc)
+    if @properties
+      render json: @properties, each_serializer: PropertySerializer
+    else
+      render json: { status: 500, error: ['No Properties Found'] }
+    end
+  end
+
   def create
     @property = Property.create(property_params)
     if @property.valid?
