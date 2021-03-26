@@ -13,7 +13,6 @@ class CreateProperties < ActiveRecord::Migration[6.1]
       t.string :bills
       t.string :furnished
       t.string :parking
-      t.string :outside_area
       t.string :disabled_access
       t.string :internet
       t.integer :occupant_count
@@ -21,6 +20,7 @@ class CreateProperties < ActiveRecord::Migration[6.1]
       t.integer :min_age
       t.integer :max_age
       t.string :smoking
+      t.string :outside_area, array: true, default: []
       t.text :pets, array: true, default: []
       t.string :genders, array: true, default: []
       t.string :occupations, array: true, default: []

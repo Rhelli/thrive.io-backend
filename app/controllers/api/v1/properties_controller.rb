@@ -21,7 +21,7 @@ class Api::V1::PropertiesController < ApplicationController
   end
 
   def create
-    @property = Property.create(property_params)
+    @property = Property.create!(property_params)
     if @property.valid?
       render json: { property: PropertySerializer.new(@property) }, status: :created
     else
@@ -60,9 +60,9 @@ class Api::V1::PropertiesController < ApplicationController
 
   def property_params
     params.require(:property).permit(
-      :id, :title, :user_type, :images, :blurb, :type, :address, :postcode, :price, :deposit, :bills,
-      :furnished, :parking, :outside_area, :disabled_access, :internet, :occupant_count, :room_count,
-      :min_age, :max_age, :smoking, :pets, :genders, :occupations
+      :id, :owner_id, :title, :user_type, :images, :blurb, :type, :address, :postcode, :price, :deposit, :bills,
+      :furnished, :parking, :disabled_access, :internet, :occupant_count, :room_count,
+      :min_age, :max_age, :smoking, :town, pets: [], genders: [], occupations: [], outside_area: []
     )
   end
 end
