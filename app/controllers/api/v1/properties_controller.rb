@@ -40,8 +40,8 @@ class Api::V1::PropertiesController < ApplicationController
 
   def update
     @property = Property.find(property_params[:id])
-    if @property.update(property_params)
-      render json: { property: @property }
+    if @property.update!(property_params)
+      render json: @property
     else
       render json: { status: 500, errors: ['Something went wrong. Please try again later.'] }
     end
