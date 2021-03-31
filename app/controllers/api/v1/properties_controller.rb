@@ -56,13 +56,22 @@ class Api::V1::PropertiesController < ApplicationController
     end
   end
 
+  def multiple_destroy
+    @properties = current_user.properties
+    if @properties.destroy_all
+      render json: { message: 'All properties have been removed.' }, status: :ok
+    else
+      render json: { status: 500, errors: ['Something went wrong. Please try again later.'] }
+    end
+  end
+
   private
 
   def property_params
     params.require(:property).permit(
       :id, :owner_id, :title, :user_type, :images, :blurb, :type, :address, :postcode, :price, :deposit, :bills,
       :furnished, :parking, :disabled_access, :internet, :occupant_count, :room_count,
-      :min_age, :max_age, :smoking, :town, pets: [], genders: [], occupations: [], outside_area: []
+      :min_age, :max_age, :smoking, :town, pets: [], genders: [], occupations: [], outside_area: [], ids: []
     )
   end
 end

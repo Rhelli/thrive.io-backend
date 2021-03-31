@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get '/manage-properties', to: 'properties#advertiser_index'
       put '/edit-property/:id', to: 'properties#update'
       delete '/delete-property/:id', to: 'properties#destroy'
+      delete '/delete-managed-properties', to: 'properties#multiple_destroy'
     end
   end
 end
