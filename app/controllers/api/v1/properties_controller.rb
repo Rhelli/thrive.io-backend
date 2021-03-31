@@ -71,7 +71,7 @@ class Api::V1::PropertiesController < ApplicationController
     params.require(:property).permit(
       :id, :owner_id, :title, :user_type, :images, :blurb, :type, :address, :postcode, :price, :deposit, :bills,
       :furnished, :parking, :disabled_access, :internet, :occupant_count, :room_count,
-      :min_age, :max_age, :smoking, :town, pets: [], genders: [], occupations: [], outside_area: [], ids: []
+      :min_age, :max_age, :smoking, :town, pets: [], genders: [], occupations: [], outside_area: []
     )
   end
 end
