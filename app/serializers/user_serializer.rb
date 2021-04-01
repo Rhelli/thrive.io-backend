@@ -3,4 +3,5 @@ class UserSerializer < ActiveModel::Serializer
              :min_budget, :max_budget, :areas_looking, :advertiser_type
   
   has_many :properties
+  has_many :shortlisted_properties
 end

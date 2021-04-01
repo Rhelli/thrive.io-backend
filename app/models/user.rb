@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :properties, foreign_key: :owner_id, dependent: :destroy
 
   has_many :shortlists, foreign_key: :user_id, dependent: :destroy
-  has_many :shortlisted_properties, through: :shortlists, foreign_key: :user_id, source: :property
+  has_many :shortlisted_properties, through: :shortlists, source: :property
 
   VALID_NAME_REGEX = /\A[a-zA-Z \d,.'-]+\z/
   validates :name, presence: true, length: {

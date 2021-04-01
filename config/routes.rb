@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       put '/edit-property/:id', to: 'properties#update'
       delete '/delete-property/:id', to: 'properties#destroy'
       delete '/delete-managed-properties', to: 'properties#multiple_destroy'
+      get '/shortlisted_properties', to: 'shortlists#user_index'
+      get '/property_likes', to: 'shortlists#property_index'
+      post '/new_shortlist', to: 'shortlist#create'
+      delete '/delete-shortlist', to: 'shortlist#destroy'
     end
   end
 end

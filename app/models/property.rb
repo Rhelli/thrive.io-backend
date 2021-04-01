@@ -4,7 +4,6 @@ class Property < ApplicationRecord
   has_many :individual_personalities, through: :aggregate_personalities, foreign_key: :individual_personality_id
 
   has_many :shortlists, foreign_key: :property_id
-  has_many :user_likes, through: :shortlists, foreign_key: :property_id, source: :user
 
   has_one :flatmate_preference, dependent: :destroy
 
