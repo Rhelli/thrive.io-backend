@@ -1,6 +1,6 @@
 class ShortlistsController < ApplicationController
   def user_index
-    @shortlists = Shortlist.user_likes(current_user.id)
+    @shortlists = current_user.shortlisted_properties
     if @shortlists
       render json: @shortlist, each_serializer: ShortlistSerializer
     else
@@ -9,7 +9,8 @@ class ShortlistsController < ApplicationController
   end
 
   def property_index
-    @shortlists = Shortlist.property_likes(id: shortlist_params[:id])
+    @property = Property.find(shortlist_params)
+    @shortlists = Property.user_likes
     if @shortlists
       render json: @shortlist, each_serializer: ShortlistSerializer
     else
@@ -42,5 +43,11 @@ class ShortlistsController < ApplicationController
     else
       render json: { status: 500, errors: ['Something went wrong! Please try again later.'] }
     end
+  end
+
+  private
+
+  def shortlist_params
+    params.permit(:id, :user_id, :property_id)
   end
 end
