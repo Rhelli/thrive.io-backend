@@ -1,3 +1,41 @@
+User.create!(
+  name: 'Jim',
+  email: 'jim@email.com',
+  password: 'password1',
+  user_type: 'Advertising',
+  advertiser_type: 'Landlord',
+  dob: '1980-12-12',
+  about: "Hi! My name is Jim and I'm a retired Biology Teacher and part time trapeze artist. Recently my house was infested with termites and I lost everything! Now looking for a new house",
+  occupation: 'Professional',
+  gender: 'Male',
+  couple: 'Non-Couple',
+  pets: ['Cats', 'Dogs', 'Fish'],
+  smoking: 'Non-Smoking',
+  min_budget: 1500,
+  max_budget: 2500,
+  areas_looking: ['Clapham Common', 'Wimbledon', 'Mt.Everest', 'Waterloo'],
+)
+
+User.create!(
+  name: 'Tim',
+  email: 'tim@email.com',
+  password: 'password1',
+  user_type: 'Advertising',
+  advertiser_type: 'Landlord',
+  dob: '1980-12-12',
+  about: "Hi! My name is Tim and I'm a retired Chemistry Teacher and part juggler. Recently my house was infested with ant-eaters and I lost everything! Now looking for a new flat",
+  occupation: 'Professional',
+  gender: 'Male',
+  couple: 'Non-Couple',
+  pets: ['Cats', 'Rodents', 'Birds'],
+  smoking: 'Non-Smoking',
+  min_budget: 1500,
+  max_budget: 2500,
+  areas_looking: ['Clapham Common', 'Wimbledon', 'Mt.Everest', 'Waterloo'],
+)
+
+
+
 def budget_gen
   min = 0
   max = 0
@@ -48,6 +86,14 @@ def pets_array_reducer(arr)
   end
 end
 
+def advertiserTypeGen(type)
+  if type == 'Advertising'
+    return ['Flatmate', 'Landlord', 'Flatmate', 'Flatmate'].sample
+  else
+    return nil
+  end
+end
+
 
 pets_array = [
   'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
@@ -64,6 +110,8 @@ occupations_array = ['Professional', 'Professional', 'Student']
   email = Faker::Internet.email
   password = 'password1'
   user_type = ['Looking', 'Advertising'].sample
+  advertiser_type = advertiserTypeGen(user_type)
+  dob = Faker::Date.between(from: '1920-01-01', to: '2002-01-01')
   about = Faker::Lorem.sentence
   avatar = 'someimageurl.com'
   occupation = ['Professional', 'Student', 'Professional'].sample
@@ -86,14 +134,14 @@ occupations_array = ['Professional', 'Professional', 'Student']
   User.create!(
     name:name, email: email, password: password, user_type: user_type, about: about, avatar: avatar,
     occupation: occupation, gender: gender, couple: couple, pets: pets, smoking: smoking, min_budget: min_budget,
-    max_budget: max_budget, areas_looking: areas_looking
+    max_budget: max_budget, areas_looking: areas_looking, advertiser_type: advertiser_type, dob: dob,
   )
 end
 
 i = 1
 postcodes = ['', 'SW18 9NB', 'SW6 1PW', 'SW7 5EZ', 'SW9 8UB', 'NW7 2QN', 'NW3 1EA', 'NE37 1SY', 'NE24 4GB', 'L36 9TL', 'L3 6LB']
 10.times do
-  owner_id = i;
+  owner_id = i
   title = Faker::Lorem.sentence(word_count: rand(2..10))
   blurb = Faker::Lorem.sentence(word_count: rand(10..40))
   address = Faker::Address.street_address
@@ -122,4 +170,39 @@ postcodes = ['', 'SW18 9NB', 'SW6 1PW', 'SW7 5EZ', 'SW9 8UB', 'NW7 2QN', 'NW3 1E
     max_age: max_age, smoking: smoking, pets: pets, genders: gender, occupations: occupations
   )
   i += 1
+end
+
+test_postcodes = ['WC86 0IJ', 'NW70 6FM', 'WC87 9CI']
+
+j = 0
+3.times do
+  owner_id = 2
+  title = Faker::Lorem.sentence(word_count: rand(2..10))
+  blurb = Faker::Lorem.sentence(word_count: rand(10..40))
+  address = Faker::Address.street_address
+  town = Faker::Address.city
+  postcode = test_postcodes[j]
+  price = (rand(700..1600)/25).ceil * 25
+  deposit = rand((price / 2)..price)
+  bills = ['Included', 'Included', 'Not Included'].sample
+  furnished = ['Furnished', 'Furnished', 'Furnished', 'Furnished', 'Non-Furnished'].sample
+  parking = ['Parking', 'No Parking'].sample
+  occupant_count = rand(1..8)
+  room_count = rand((occupant_count + 1)..(occupant_count + 5))
+  outside_area = ['Garden', 'Terrace', 'Patio', 'Balcony', 'Other'].sample
+  disabled_access = ['Disabled Access', 'No Disabled Access'].sample
+  internet = ['Internet Included', 'No Internet Included'].sample
+  min_age = age_range_gen[0]
+  max_age = age_range_gen[1]
+  smoking = ['Any', 'Smoking', 'Non-Smoking'].sample
+  pets = pets_array_reducer(array_gen(pets_array))
+  gender = array_gen(gender_array, occupant_count)
+  occupations = array_gen(occupations_array, occupant_count)
+  Property.create!(
+    owner_id: owner_id, title: title, blurb: blurb, address: address, town: town, postcode: postcode,
+    price: price, deposit: deposit, bills: bills, furnished: furnished, parking: parking, occupant_count: occupant_count,
+    room_count: room_count, outside_area: outside_area, disabled_access: disabled_access, internet: internet, min_age: min_age,
+    max_age: max_age, smoking: smoking, pets: pets, genders: gender, occupations: occupations
+  )
+  j += 1
 end

@@ -12,8 +12,10 @@ Rails.application.routes.draw do
       resources :properties, only: [:index]
       post '/new-property', to: 'properties#create'
       get '/property/:id', to: 'properties#show'
-      post '/edit-property/:id', to: 'properties#update'
+      get '/manage-properties', to: 'properties#advertiser_index'
+      put '/edit-property/:id', to: 'properties#update'
       delete '/delete-property/:id', to: 'properties#destroy'
+      delete '/delete-managed-properties', to: 'properties#multiple_destroy'
     end
   end
 end

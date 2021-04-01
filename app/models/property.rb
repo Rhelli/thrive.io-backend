@@ -33,7 +33,7 @@ class Property < ApplicationRecord
     maximum: 8,
     too_short: '%{count} is the minimum number of characters in any UK postcode. Please ensure you have entered yours correctly.',
     too_long: '%{count} is the maximum number of characters in any UK postcode. Please ensure you have entered yours correctly.'
-  }, format: { with: VALID_ADDRESS_REGEX }, uniqueness: { case_sensitive: false }
+  }, format: { with: VALID_ADDRESS_REGEX }
   validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :deposit, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :bills, presence: true, inclusion: { in: ['Included', 'Not Included'] }
@@ -51,7 +51,7 @@ class Property < ApplicationRecord
   validates :max_age, numericality: { only_integer: true, greater_than_or_equal_to: 18, less_than: 125 },
                       allow_nil: true
   validates :smoking, inclusion: { in: %w[Any Smoking Non-Smoking] }, allow_nil: true
-  validates :pets, inclusion: { in: %w[Any Cats Dogs Fish Reptiles Birds Rodents Other None] }, allow_nil: true
+  validates :pets, inclusion: { in: %w[Cats Dogs Fish Reptiles Birds Rodents Other None] }, allow_nil: true
   validates :genders, inclusion: { in: %w[Male Female Transgender Other] }, allow_nil: true
-  validates :occupations, inclusion: { in: %w[Any Student Professional] }, allow_nil: true
+  validates :occupations, inclusion: { in: %w[Student Professional] }, allow_nil: true
 end

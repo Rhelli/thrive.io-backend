@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_162858) do
+ActiveRecord::Schema.define(version: 2021_03_26_204912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(version: 2021_02_26_162858) do
     t.string "bills"
     t.string "furnished"
     t.string "parking"
-    t.string "outside_area"
     t.string "disabled_access"
     t.string "internet"
     t.integer "occupant_count"
@@ -88,6 +87,7 @@ ActiveRecord::Schema.define(version: 2021_02_26_162858) do
     t.integer "min_age"
     t.integer "max_age"
     t.string "smoking"
+    t.string "outside_area", default: [], array: true
     t.text "pets", default: [], array: true
     t.string "genders", default: [], array: true
     t.string "occupations", default: [], array: true
@@ -115,6 +115,8 @@ ActiveRecord::Schema.define(version: 2021_02_26_162858) do
     t.text "areas_looking", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "dob"
+    t.string "advertiser_type"
     t.index ["email"], name: "index_users_on_email"
   end
 
