@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_204912) do
+ActiveRecord::Schema.define(version: 2021_04_02_204626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,16 @@ ActiveRecord::Schema.define(version: 2021_03_26_204912) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["aggregate_id"], name: "index_properties_on_aggregate_id"
     t.index ["owner_id"], name: "index_properties_on_owner_id"
+  end
+
+  create_table "shortlists", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "property_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["property_id"], name: "index_shortlists_on_property_id"
+    t.index ["user_id", "property_id"], name: "index_shortlists_on_user_id_and_property_id", unique: true
+    t.index ["user_id"], name: "index_shortlists_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
