@@ -1,4 +1,4 @@
-class ShortlistsController < ApplicationController
+class Api::V1::ShortlistsController < ApplicationController
   def user_index
     @shortlists = current_user.shortlisted_properties
     if @shortlists
@@ -19,8 +19,8 @@ class ShortlistsController < ApplicationController
   end
 
   def create
-    @shortlist = Shortlist.create!(shortlist_params)
-    if @shortlist.valid?
+    @shortlist = current_user.shortlists.build(property_id: shortlist_params[:property_id])
+    if @shortlist.save
       render json: { shortlist: ShortlistSerializer.new(@shortlist) }, status: :created
     else
       render json: { errors: ['Failed to create shortlist. Please try again.'] }, status: :not_acceptable
@@ -37,7 +37,7 @@ class ShortlistsController < ApplicationController
   end
 
   def destroy
-    @shortlist = Shortlist.find(shortlist_params[:id])
+    @shortlist = Shortlist.find_by(property_id: shortlist_params[:property_id])
     if @shortlist.destroy!
       render json: { message: 'Shortlist deleted.' }, status: :ok
     else
@@ -48,6 +48,6 @@ class ShortlistsController < ApplicationController
   private
 
   def shortlist_params
-    params.permit(:id, :user_id, :property_id)
+    params.require(:shortlist).permit(:id, :user_id, :property_id)
   end
 end

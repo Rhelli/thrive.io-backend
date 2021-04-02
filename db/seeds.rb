@@ -206,3 +206,15 @@ j = 0
   )
   j += 1
 end
+
+k = 1
+29.times do
+  h = 0
+  number = rand(1..10)
+  property_ids = (1..10).to_a.sort{ rand() - 0.5 }[1..number]
+  property_ids.length.times do
+    Shortlist.create!(user_id: k, property_id: property_ids[h])
+    h += 1
+  end
+  k += 1
+end

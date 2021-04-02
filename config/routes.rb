@@ -19,8 +19,8 @@ Rails.application.routes.draw do
       delete '/delete-managed-properties', to: 'properties#multiple_destroy'
       get '/shortlisted_properties', to: 'shortlists#user_index'
       get '/property_likes', to: 'shortlists#property_index'
-      post '/new_shortlist', to: 'shortlist#create'
-      delete '/delete-shortlist', to: 'shortlist#destroy'
+      post '/new-shortlist', to: 'shortlists#create'
+      delete '/delete-shortlist', to: 'shortlists#destroy'
     end
   end
 end
