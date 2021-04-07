@@ -5,8 +5,9 @@ class Api::V1::AuthController < ApplicationController
   def create
     @user = User.authenticate(user_login_params[:email], user_login_params[:password])
     if @user
+      @current_user = @user
       token = encode_token({ user_id: @user.id })
-      render json: { user: UserSerializer.new(@user), jwt: token }, status: :accepted
+      render json: { current_user: UserSerializer.new(current_user), jwt: token }, status: :accepted
     else
       render json: { error: 'Invalid email address or password. Please try again.' }, status: :unauthorized
     end

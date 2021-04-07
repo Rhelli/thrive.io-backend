@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :authorized
+  serialization_scope :current_user
 
   def encode_token(payload)
     JWT.encode(payload, 'secret', 'HS256')
