@@ -34,7 +34,22 @@ User.create!(
   areas_looking: ['Clapham Common', 'Wimbledon', 'Mt.Everest', 'Waterloo'],
 )
 
+@town_array = [
+  'Camden', 'Balham', 'Clapham', 'Addlestone', 'Angel', 'Bankside', 'Barbican', 'Barking', 'Barnes',
+  'Battersea', 'Bayswater', 'Belgravia', 'Belmont', 'Belvedere', 'Blackfriars', 'Brixton', 'Canary Wharf',
+  'Chalk Farm', 'Charing Cross', 'Dulwich', 'Edgware', 'Farringdon', 'Fulham', 'Ham', 'Hampton Hill', 'Highgate',
+  'Clapham Common', 'Wimbledon'
+]
 
+pets_array = [
+  'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
+  'Reptiles', 'Birds', 'Rodents', 'Other', 'None', 'None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None',
+  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None'
+]
+gender_array  = ['Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Transgender']
+occupations_array = ['Professional', 'Professional', 'Student']
 
 def budget_gen
   min = 0
@@ -59,8 +74,10 @@ end
 def areas_looking_gen
   areas = []
   rand(1..5).times do
-    areas.push(Faker::Address.city)
+    town = @town_array.sample
+    areas.push(town)
   end
+  areas = areas.uniq
   areas
 end
 
@@ -93,17 +110,6 @@ def advertiserTypeGen(type)
     return nil
   end
 end
-
-
-pets_array = [
-  'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Cats', 'Dogs', 'Fish', 
-  'Reptiles', 'Birds', 'Rodents', 'Other', 'None', 'None', 'None', 'None', 'None',
-  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None',
-  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None',
-  'None','None', 'None', 'None', 'None', 'None','None', 'None', 'None', 'None'
-]
-gender_array  = ['Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Transgender']
-occupations_array = ['Professional', 'Professional', 'Student']
 
 30.times do
   name = Faker::Name.first_name
@@ -139,13 +145,16 @@ occupations_array = ['Professional', 'Professional', 'Student']
 end
 
 i = 1
-postcodes = ['', 'SW18 9NB', 'SW6 1PW', 'SW7 5EZ', 'SW9 8UB', 'NW7 2QN', 'NW3 1EA', 'NE37 1SY', 'NE24 4GB', 'L36 9TL', 'L3 6LB']
-10.times do
+postcodes = [
+  '', 'SW18 9NB', 'SW6 1PW', 'SW7 5EZ', 'SW9 8UB', 'NW7 2QN', 'NW3 1EA', 'NE37 1SY', 'NE24 4GB',
+  'L36 9TL', 'L3 6LB', 'N5 2AG', 'W3 0AA', 'NW3 2QZ', 'E2 8HT', 'SW6 2FE', 'W6 9RD', 'SW7 1DW', 'SE15 3PY', 'N20 9JR', 'E7 0DX'
+]
+20.times do
   owner_id = i
   title = Faker::Lorem.sentence(word_count: rand(2..10))
   blurb = Faker::Lorem.sentence(word_count: rand(10..40))
   address = Faker::Address.street_address
-  town = Faker::Address.city
+  town = @town_array.sample
   postcode = postcodes[i]
   price = (rand(700..1600)/25).ceil * 25
   deposit = rand((price / 2)..price)
@@ -180,7 +189,7 @@ j = 0
   title = Faker::Lorem.sentence(word_count: rand(2..10))
   blurb = Faker::Lorem.sentence(word_count: rand(10..40))
   address = Faker::Address.street_address
-  town = Faker::Address.city
+  town = @town_array.sample
   postcode = test_postcodes[j]
   price = (rand(700..1600)/25).ceil * 25
   deposit = rand((price / 2)..price)
