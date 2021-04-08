@@ -3,6 +3,6 @@ class UserSerializer < ActiveModel::Serializer
              :min_budget, :max_budget, :areas_looking, :advertiser_type, :shortlisted_properties, :properties, :suggested_properties
 
   def suggested_properties
-    User.relevant_properties(current_user)
+    User.relevant_properties(self.object)
   end
 end
