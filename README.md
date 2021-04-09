@@ -24,7 +24,7 @@
 ## 📑 Table of Contents
   - [The Project Brief](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-the-project-brief)
   - [The Technical Requirements](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-the-technical-requirements)
-  - [Appilcation Architecture](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#%EF%B8%8F-application-architecture)
+  - [Application Architecture](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#%EF%B8%8F-application-architecture)
   - [Tools & Technology Used](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-tools--technology-used)
   - [Setup & Use](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-setup--use)
   - [Contributions, Issues and Forking](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#%EF%B8%8F-contributions-issues-and-forking)
