@@ -13,15 +13,15 @@ class User < ApplicationRecord
   validates :name, presence: true, length: {
     minimum: 1,
     maximum: 50,
-    too_short: '%{count} is the minimum number of characters allowed.',
-    too_long: '%{count} is the maximum number of characters allowed, please shorten your name!'
+    too_short: '%<count>s is the minimum number of characters allowed.',
+    too_long: '%<count>s is the maximum number of characters allowed, please shorten your name!'
   }, format: { with: VALID_NAME_REGEX }
   validates :dob, presence: true
   validate :validate_age
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: {
     maximum: 255,
-    too_long: '%{count} is the maximum number of characters allowed. Please ensure your email is valid.'
+    too_long: '%<count>s is the maximum number of characters allowed. Please ensure your email is valid.'
   }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   VALID_PASSWORD_REGEX = /\A(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}\z/
   validates :password, format: {
@@ -33,7 +33,7 @@ class User < ApplicationRecord
   # validates :images
   validates :about, length: {
     maximum: 5000,
-    too_long: "%{count} is the maximum character length for your 'About Me'. Try to keep it short but sweet!"
+    too_long: "%<count>s is the maximum character length for your 'About Me'. Try to keep it short but sweet!"
   }
 
   # NOT REQUIRED
@@ -46,13 +46,15 @@ class User < ApplicationRecord
   validates :max_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :areas_looking, length: {
     maximum: 140,
-    too_long: '%{count} is the maximum number of characters allowed.
+    too_long: '%<count>s is the maximum number of characters allowed.
               Please reduce the number of areas you have shortlisted!'
   }, allow_nil: true
-  validates :advertiser_type, inclusion: { in: ['Flatmate', 'Landlord'] }, allow_nil: true
+  validates :advertiser_type, inclusion: { in: %w[Flatmate Landlord] }, allow_nil: true
 
-  scope :relevant_properties, ->(current_user) { Property.where('town IN (?)', current_user.areas_looking).order(created_at: :desc) }
-  scope :looking_users, ->() { User.where('user_type = ?', 'Looking').order(created_at: :asc)}
+  scope :relevant_properties, lambda { |current_user|
+                                Property.where('town IN (?)', current_user.areas_looking).order(created_at: :desc)
+                              }
+  scope :looking_users, -> { User.where('user_type = ?', 'Looking').order(created_at: :asc) }
 
   def encrypt_password
     return unless password.present? && !password.blank?
@@ -69,10 +71,6 @@ class User < ApplicationRecord
   end
 
   def validate_age
-    if dob.present? && dob > 18.years.ago
-      errors.add(:dob, 'You must be over 18 to register for an account.')
-    end
+    errors.add(:dob, 'You must be over 18 to register for an account.') if dob.present? && dob > 18.years.ago
   end
 end
-
-
