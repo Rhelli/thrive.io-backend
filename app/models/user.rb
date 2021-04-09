@@ -4,8 +4,6 @@ class User < ApplicationRecord
   validates_confirmation_of :password
   before_save :encrypt_password
 
-  has_one :individual_personality, foreign_key: :user_id, dependent: :destroy
-  has_one :house_preference, foreign_key: :user_id, dependent: :destroy
   has_many :properties, foreign_key: :owner_id, dependent: :destroy
 
   has_many :shortlists, foreign_key: :user_id, dependent: :destroy
