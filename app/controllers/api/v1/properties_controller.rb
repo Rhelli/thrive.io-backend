@@ -11,8 +11,7 @@ class Api::V1::PropertiesController < ApplicationController
   end
 
   def advertiser_index
-    properties = Property.all
-    @properties = properties.where(owner_id: current_user.id).order(created_at: :asc)
+    @properties = Property.owned_properties(current_user)
     if @properties
       render json: @properties, each_serializer: PropertySerializer
     else

@@ -1,7 +1,5 @@
 class Property < ApplicationRecord
   belongs_to :user, foreign_key: :owner_id
-  has_many :aggregate_personality, foreign_key: :property_id
-  has_many :individual_personalities, through: :aggregate_personalities, foreign_key: :individual_personality_id
 
   has_many :shortlists, foreign_key: :property_id
   has_many :user_likes, through:  :shortlists, source: :user
@@ -57,4 +55,6 @@ class Property < ApplicationRecord
   validates :pets, inclusion: { in: %w[Cats Dogs Fish Reptiles Birds Rodents Other None] }, allow_nil: true
   validates :genders, inclusion: { in: %w[Male Female Transgender Other] }, allow_nil: true
   validates :occupations, inclusion: { in: %w[Student Professional] }, allow_nil: true
+
+  scope :owned_properties, -> (user) { Property.where('owner_id = ?', user.id).order(created_at: :asc) }
 end

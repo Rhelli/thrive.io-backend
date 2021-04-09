@@ -4,8 +4,6 @@ class User < ApplicationRecord
   validates_confirmation_of :password
   before_save :encrypt_password
 
-  has_one :individual_personality, foreign_key: :user_id, dependent: :destroy
-  has_one :house_preference, foreign_key: :user_id, dependent: :destroy
   has_many :properties, foreign_key: :owner_id, dependent: :destroy
 
   has_many :shortlists, foreign_key: :user_id, dependent: :destroy
@@ -54,6 +52,7 @@ class User < ApplicationRecord
   validates :advertiser_type, inclusion: { in: ['Flatmate', 'Landlord'] }, allow_nil: true
 
   scope :relevant_properties, ->(current_user) { Property.where('town IN (?)', current_user.areas_looking).order(created_at: :desc) }
+  scope :looking_users, ->() { User.where('user_type = ?', 'Looking').order(created_at: :asc)}
 
   def encrypt_password
     return unless password.present? && !password.blank?
