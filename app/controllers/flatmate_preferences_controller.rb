@@ -1,2 +1,0 @@
-class FlatmatePreferencesController < ApplicationController
-end

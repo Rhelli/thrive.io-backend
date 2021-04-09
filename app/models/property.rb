@@ -57,4 +57,6 @@ class Property < ApplicationRecord
   validates :pets, inclusion: { in: %w[Cats Dogs Fish Reptiles Birds Rodents Other None] }, allow_nil: true
   validates :genders, inclusion: { in: %w[Male Female Transgender Other] }, allow_nil: true
   validates :occupations, inclusion: { in: %w[Student Professional] }, allow_nil: true
+
+  scope :owned_properties, -> (user) { Property.where('owner_id = ?', user.id).order(created_at: :asc) }
 end

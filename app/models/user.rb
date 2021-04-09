@@ -54,6 +54,7 @@ class User < ApplicationRecord
   validates :advertiser_type, inclusion: { in: ['Flatmate', 'Landlord'] }, allow_nil: true
 
   scope :relevant_properties, ->(current_user) { Property.where('town IN (?)', current_user.areas_looking).order(created_at: :desc) }
+  scope :looking_users, ->() { User.where('user_type = ?', 'Looking').order(created_at: :asc)}
 
   def encrypt_password
     return unless password.present? && !password.blank?
