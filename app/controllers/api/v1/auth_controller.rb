@@ -21,7 +21,7 @@ class Api::V1::AuthController < ApplicationController
     if @user
       render json: { message: 'Authenticated' }, status: :accepted
     else
-      render json: { error: ['Invalid login credentials. Please try again.'] }, status: :unauthorized
+      render json: { error: 'Invalid login credentials. Please try again.' }, status: :unauthorized
     end
   end
 
