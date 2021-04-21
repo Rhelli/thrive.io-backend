@@ -168,4 +168,43 @@ RSpec.describe User, type: :model do
       expect(bob.update(max_budget: 'I am very rich')).to be_falsey
     end
   end
+
+  context 'User model areas looking validations' do
+    it 'allows a user to add and update the areas they are interested in' do
+      expect(bob.update(areas_looking: ['Belgravia'])).to be_truthy
+    end
+
+    it 'does not allow a user to have a list of more that 5 areas' do
+      expect(bob.update(areas_looking: ['Camden', 'Belgravia', 'Hammersmith', 'Shad Thames', 'Tower Hamlets', 'Pimlico'])).to be_falsey
+    end
+
+    it 'does not allow a user to enter an incorrectly formatted area' do
+      expect(bob.update(areas_looking: ['@MyHoUsE'])).to be_falsey
+    end
+  end
+
+  context 'User model advertiser type validations' do
+    it 'allows a user to update their advertiser type' do
+      bob.update(user_type: 'Advertising')
+      expect(bob.update(advertiser_type: 'Flatmate')).to be_truthy
+    end
+
+    it "does not allow a user to update their advertising type if they are a 'Looking' user" do
+      expect(bob.update(advertiser_type: 'Flatmate')).to be_falsey
+    end
+  end
+
+  context 'The User Authenticate method' do
+    it 'will correctly authenticate a user when the correct password is provided' do
+      expect(User.authenticate('bob@mail.com', 'password1')).to be_truthy
+    end
+
+    it 'will reject user authentication if incorrect email is given' do
+      expect(User.authenticate('bob@emaily.com', 'password1')).to be_falsey
+    end
+
+    it 'will reject user authentication if an incorrect password is given' do
+      expect(User.authenticate('bob@mail.com', 'passwrd1')).to be_falsey
+    end
+  end
 end

@@ -45,11 +45,26 @@ class User < ApplicationRecord
   validates :min_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :max_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :areas_looking, length: {
-    maximum: 140,
+    maximum: 4,
     too_long: '%<count>s is the maximum number of characters allowed.
               Please reduce the number of areas you have shortlisted!'
   }, allow_nil: true
+  validate :validates_area_format
   validates :advertiser_type, inclusion: { in: %w[Flatmate Landlord] }, allow_nil: true
+  validate :validates_advertiser
+
+  def validate_age
+    errors.add(:dob, 'You must be over 18 to register for an account.') if dob.present? && dob > 18.years.ago
+  end
+
+  def validates_area_format
+    errors.add(:areas_looking, 'Please do not use any symbols or unusual characters.') if areas_looking.present? && areas_looking.any? { |area| !area.match(/\A[a-zA-Z \d,.'-]+\z/) }
+  end
+
+  def validates_advertiser
+    errors.add(:advertiser_type, 'You may not set your advertising type if you are looking for a property.') if
+    advertiser_type.present? && user_type.present? && user_type == 'Looking'
+  end
 
   scope :relevant_properties, lambda { |current_user|
                                 Property.where('town IN (?)', current_user.areas_looking).order(created_at: :desc)
@@ -68,9 +83,5 @@ class User < ApplicationRecord
     return user if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
 
     nil
-  end
-
-  def validate_age
-    errors.add(:dob, 'You must be over 18 to register for an account.') if dob.present? && dob > 18.years.ago
   end
 end
