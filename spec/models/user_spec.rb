@@ -181,10 +181,11 @@ RSpec.describe User, type: :model do
 
     it 'does not allow a user to have a list of more that 10 areas' do
       expect(bob.update(
-        areas_looking: [
-          'Camden', 'Belgravia', 'Hammersmith', 'Shad Thames', 'Tower Hamlets', 'Pimlico',
-          'Camden', 'Belgravia', 'Hammersmith', 'Shad Thames', 'Tower Hamlets', 'Pimlico'
-        ])).to be_falsey
+               areas_looking: [
+                 'Camden', 'Belgravia', 'Hammersmith', 'Shad Thames', 'Tower Hamlets', 'Pimlico',
+                 'Camden', 'Belgravia', 'Hammersmith', 'Shad Thames', 'Tower Hamlets', 'Pimlico'
+               ]
+             )).to be_falsey
     end
 
     it 'does not allow a user to enter an incorrectly formatted area' do
