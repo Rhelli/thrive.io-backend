@@ -31,7 +31,7 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: {
         status: 500,
-        errors: ['User not found.']
+        error: 'User not found.'
       }
     end
   end
@@ -41,7 +41,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.update!(user_params)
       render json: current_user, serializer: UserSerializer, status: :accepted
     else
-      render json: { error: ['Failed to update user! Please try again.'] }, status: :not_acceptable
+      render json: { error: 'Failed to update user! Please try again.' }, status: :not_acceptable
     end
   end
 
@@ -50,7 +50,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.destroy!
       render json: { message: 'Account deleted successfully.', status: :ok }
     else
-      render json: { error: ['An error occurred whilst deleting this account. Please try again.'] }, status: 500
+      render json: { error: 'An error occurred whilst deleting this account. Please try again.' }, status: 500
     end
   end
 

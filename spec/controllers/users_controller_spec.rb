@@ -5,8 +5,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let!(:ben) { User.create!(name: 'Ben', email: 'ben@email.com', password: 'password1', user_type: 'Looking', dob: '1980-02-02') }
   let!(:alan) { User.create!(name: 'Alan', email: 'alan@email.com', password: 'password1', user_type: 'Advertising', dob: '1980-02-03') }
 
-  before { Auth('steve@email.com', 'password1') }
-
   context 'The User Controller Index Method' do
     it 'returns a list of users who are looking' do
       get :index
@@ -24,14 +22,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
       expect(assigns(:users)).to_not include(alan)
-    end
-  end
-
-  context 'The User Controller profile method' do
-    it 'returns the current users profile information' do
-      get :profile
-      expect(response).to have_http_status(:success)
-      expect(assigns(:current_user).name).to eq('Steve')
     end
   end
 end

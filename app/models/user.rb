@@ -45,7 +45,7 @@ class User < ApplicationRecord
   validates :min_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :max_budget, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :areas_looking, length: {
-    maximum: 4,
+    maximum: 10,
     too_long: '%<count>s is the maximum number of characters allowed.
               Please reduce the number of areas you have shortlisted!'
   }, allow_nil: true
