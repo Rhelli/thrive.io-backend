@@ -58,7 +58,9 @@ class User < ApplicationRecord
   end
 
   def validates_area_format
-    errors.add(:areas_looking, 'Please do not use any symbols or unusual characters.') if areas_looking.present? && areas_looking.any? { |area| !area.match(/\A[a-zA-Z \d,.'-]+\z/) }
+    return unless areas_looking.present? && areas_looking.any? { |area| !area.match(/\A[a-zA-Z \d,.'-]+\z/) }
+
+    errors.add(:areas_looking, 'Please do not use any symbols or unusual characters.')
   end
 
   def validates_advertiser

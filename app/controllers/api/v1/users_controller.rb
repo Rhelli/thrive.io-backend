@@ -10,7 +10,7 @@ class Api::V1::UsersController < ApplicationController
     if @users
       render json: @users, each_serializer: UserSerializer
     else
-      render json: { status: 500, error: ['No users found.'] }
+      render json: { status: 500, error: 'No users found.' }
     end
   end
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Property, type: :model do
   let!(:bob) { User.create!(name: 'Bob', email: 'bob@mail.com', password: 'password1', dob: '1979-01-01', user_type: 'Looking') }
-  let!(:property1) {
+  let!(:property1) do
     Property.create!(
       owner_id: bob.id,
       title: 'Lovely House',
@@ -18,11 +18,11 @@ RSpec.describe Property, type: :model do
       occupant_count: 2,
       room_count: 3
     )
-  }
+  end
 
   context 'Property model validations for the title' do
     it 'Allows the creation of a property when correctly formatted' do
-      newProperty = Property.new(
+      new_property = Property.new(
         owner_id: bob.id,
         title: 'A Lovely Little House',
         blurb: 'A small cottage',
@@ -37,11 +37,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to be_valid
+      expect(new_property).to be_valid
     end
 
     it 'Rejects the creation of a house without an owner' do
-      newProperty = Property.new(
+      new_property = Property.new(
         title: 'A Lovely Little House',
         blurb: 'A small cottage',
         address: '10 Druiry Lane',
@@ -55,11 +55,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'Rejects the creation of a new house without a title' do
-      newProperty = Property.new(
+      new_property = Property.new(
         owner_id: bob.id,
         title: '',
         blurb: 'A small cottage',
@@ -74,11 +74,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'Rejects the creation of a new house with an incorrectly formatted title' do
-      newProperty = Property.new(
+      new_property = Property.new(
         owner_id: bob.id,
         title: 'A Lovely L@ttle H#$(*)_%&U _#$% !',
         blurb: 'A small cottage',
@@ -93,11 +93,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'Rejects the creation of a new house with a title over 140 characters' do
-      newProperty = Property.new(
+      new_property = Property.new(
         owner_id: bob.id,
         title: 'A' * 141,
         blurb: 'A small cottage',
@@ -112,13 +112,13 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
   context 'Property model validations for the blurb/description' do
     it 'Rejects the creation of a blurb with more than 3000 characters' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A' * 3001,
@@ -133,11 +133,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'Rejects the creation of a property without a blurb' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: '',
@@ -152,13 +152,13 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
   context 'Property model validations for the address' do
     it 'Rejects the creation of property without an address' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -173,11 +173,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'Rejects the creation of a property with an incorrectly formatted address' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -192,11 +192,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a new property with an address with more than 3000 characters' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -211,13 +211,13 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
   context 'Property model validations for the town field' do
     it 'rejects the creation of a property with no town set' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -232,11 +232,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a new property wtih an incorrectly formatted town' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -251,11 +251,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a new property with an town over 1000 characters' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -270,13 +270,13 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
   context 'Property model postcode validations' do
     it 'rejects the creation of a property with an incorrectly formatted postcode' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -291,11 +291,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property with a postcode over 8 characters' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -310,11 +310,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property with a postcode under 6 characters' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -329,11 +329,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property without a postcode' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -348,13 +348,13 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
   context 'Property model validations for the price field' do
     it 'rejects the creation of a property without a price/rent set' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -369,11 +369,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property with a price in the wrong format' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -388,11 +388,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property with a negative price/rent' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -407,13 +407,13 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
   context 'Property model validations for the deposit field' do
     it 'rejects the creation of a property without a deposit set' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -428,11 +428,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property with a deposit in the wrong format' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -447,11 +447,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property with a negative deposit' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -466,13 +466,13 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
   context 'Property model validations for the bills field' do
     it 'rejects the creation of a new property with no bills option set' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -487,11 +487,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property with an unlisted bill option' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -506,13 +506,13 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
   context 'Property model validations for the furnished field' do
     it 'rejects the creation of a property with no furnished option set' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -527,11 +527,11 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
 
     it 'rejects the creation of a property with an unlisted furnished option set' do
-      newProperty = Property.create(
+      new_property = Property.create(
         owner_id: bob.id,
         title: 'Lovely House',
         blurb: 'A small cottage',
@@ -546,7 +546,7 @@ RSpec.describe Property, type: :model do
         occupant_count: 2,
         room_count: 3
       )
-      expect(newProperty).to_not be_valid
+      expect(new_property).to_not be_valid
     end
   end
 
@@ -678,27 +678,27 @@ RSpec.describe Property, type: :model do
 
   context 'Property model validations for the pets option' do
     it 'accepts valid included pets options' do
-      expect(property1.update(pets: ['Dogs', 'Cats'])).to be_truthy
+      expect(property1.update(pets: %w[Dogs Cats])).to be_truthy
     end
 
     it 'rejects an unlisted pet option' do
-      expect(property1.update(pets: ['Cats', 'Camels'])).to be_falsey
+      expect(property1.update(pets: %w[Cats Camels])).to be_falsey
     end
   end
 
   context 'Property model validations for the genders field' do
     it 'accepts valid included gender options' do
-      expect(property1.update(genders: ['Male', 'Male', 'Female'])).to be_truthy
+      expect(property1.update(genders: %w[Male Male Female])).to be_truthy
     end
 
     it 'rejects unlisted gender options' do
-      expect(property1.update(genders: ['Male', 'Female', 'Android'])).to be_falsey
+      expect(property1.update(genders: %w[Male Female Android])).to be_falsey
     end
   end
 
   context 'Property model validations for the occupations option' do
     it 'accepts valid included occupation options' do
-      expect(property1.update(occupations: ['Professional', 'Student'])).to be_truthy
+      expect(property1.update(occupations: %w[Professional Student])).to be_truthy
     end
 
     it 'rejects invalid unlisted occupation options' do

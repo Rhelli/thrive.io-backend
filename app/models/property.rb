@@ -43,8 +43,8 @@ class Property < ApplicationRecord
 
   # NOT REQUIRED
   validates :outside_area, inclusion: { in: %w[Garden Terrace Patio Balcony Other] }, allow_nil: true
-  validates :disabled_access, inclusion: ['Disabled Access', 'No Disabled Access', ''], allow_nil: true
-  validates :internet, inclusion: ['Internet Included', 'No Internet Included', ''], allow_nil: true
+  validates :disabled_access, inclusion: { in: ['Disabled Access', 'No Disabled Access', ''] }, allow_nil: true
+  validates :internet, inclusion: { in: ['Internet Included', 'No Internet Included', ''] }, allow_nil: true
   validates :min_age, numericality: { only_integer: true, greater_than_or_equal_to: 18, less_than: 125 },
                       allow_nil: true
   validates :max_age, numericality: { only_integer: true, greater_than_or_equal_to: 18, less_than: 125 },

@@ -1,6 +1,6 @@
 module SpecTestHelper
   def login(user)
-    user = User.where(:login => user.to_s).first if user.is_a?(Symbol)
+    user = User.where(login: user.to_s).first if user.is_a?(Symbol)
     request.authorize[:user] = user.id
   end
 

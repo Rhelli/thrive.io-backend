@@ -35,13 +35,18 @@ RSpec.describe User, type: :model do
     end
 
     it 'rejects the creation of a user with an email exceeding 255 characters' do
-      steve = User.new(name: 'Steve', email: 'steeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeve@email', password: 'password1', dob: '1990-01-01', user_type: 'Looking')
+      steve = User.new(
+        name: 'Steve',
+        email: "#{'a' * 256}@email.com",
+        password: 'password1',
+        dob: '1990-01-01',
+        user_type: 'Looking'
+      )
       expect(steve).to_not be_valid
     end
 
     it 'rejects the creation of a user with an email that already exists in the database' do
-      steve = User.create(name: 'Steve', email: 'steve@email.com', password: 'password1', dob: '1990-01-01', user_type: 'Looking')
-      steven = User.new(name: 'Steve', email: 'steve@email.com', password: 'password1', dob: '1990-01-01', user_type: 'Looking')
+      steven = User.new(name: 'Steve', email: 'bob@mail.com', password: 'password1', dob: '1990-01-01', user_type: 'Looking')
       expect(steven).to_not be_valid
     end
 
