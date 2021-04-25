@@ -5,7 +5,6 @@ class Api::V1::AuthController < ApplicationController
   def create
     @user = User.authenticate(user_login_params[:email], user_login_params[:password])
     if @user
-      current_user = @user
       token = encode_token({ user_id: @user.id })
       render json: { user: UserSerializer.new(@user), jwt: token }, status: :accepted
     else
@@ -22,7 +21,7 @@ class Api::V1::AuthController < ApplicationController
     if @user
       render json: { message: 'Authenticated' }, status: :accepted
     else
-      render json: { error: ['Invalid login credentials. Please try again.'] }, status: :unauthorized
+      render json: { error: 'Invalid login credentials. Please try again.' }, status: :unauthorized
     end
   end
 
