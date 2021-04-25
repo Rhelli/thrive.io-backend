@@ -9,10 +9,10 @@
 </h3>
 <p align="center">
     <br />
-    <a href=""><strong>Visit The Site »</strong></a>
+    <a href="https://thrive-living.herokuapp.com/"><strong>Visit The Site »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Rhelli/thrive.io-backend/archive/refs/heads/release/0.1.0.zip">Download this repository</a>
+    <a href="https://github.com/Rhelli/thrive.io-backend/archive/refs/heads/master.zip">Download this repository</a>
     |
     <a href="https://github.com/Rhelli/thrive.io-backend/issues">Report A Bug</a>
     |
@@ -22,15 +22,16 @@
 
 
 ## 📑 Table of Contents
-  - [The Project Brief](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-the-project-brief)
-  - [The Technical Requirements](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-the-technical-requirements)
-  - [Application Architecture](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#%EF%B8%8F-application-architecture)
-  - [Tools & Technology Used](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-tools--technology-used)
-  - [Setup & Use](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-setup--use)
-  - [Contributions, Issues and Forking](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#%EF%B8%8F-contributions-issues-and-forking)
-  - [Creator](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-creator)
-  - [Show Your Support!](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#-show-your-support)
-  - [Licensing](https://github.com/Rhelli/thrive.io-backend/tree/release/0.1.0#%EF%B8%8F-licensing)
+  - [The Project Brief](https://github.com/Rhelli/thrive.io-backend#-the-project-brief)
+  - [The Technical Requirements](https://github.com/Rhelli/thrive.io-backend#-the-technical-requirements)
+  - [How Does It Work?](https://github.com/Rhelli/thrive.io-backend#how-does-it-work)
+  - [Application Architecture](https://github.com/Rhelli/thrive.io-backend#%EF%B8%8F-application-architecture)
+  - [Tools & Technology Used](https://github.com/Rhelli/thrive.io-backend#-tools--technology-used)
+  - [Setup & Use](https://github.com/Rhelli/thrive.io-backend#-setup--use)
+  - [Contributions, Issues and Forking](https://github.com/Rhelli/thrive.io-backend#%EF%B8%8F-contributions-issues-and-forking)
+  - [Creator](https://github.com/Rhelli/thrive.io-backend#-creator)
+  - [Show Your Support!](https://github.com/Rhelli/thrive.io-backend#-show-your-support)
+  - [Licensing](https://github.com/Rhelli/thrive.io-backend#%EF%B8%8F-licensing)
 
 
 ## 🔰 The Project Brief
@@ -75,7 +76,7 @@ Users who are 'looking' for flatshares are a simple, one dimensional model - the
 Moving into a shared household is a big move. It would follow, then, that most people would not make such a move (especially over the internet), unless provided with a wealth of information about the property they would be moving into and the flatmates they would share it with. Therefore, I tried to maximise the varying (and salient) information about the property and its inhabitants in order to make choosing a new flatshare for the user as easy as possible. Ultimately, with this form of service, the less information there is about the property, the less useful this application is.
 
 ## ⚙️ Application Architecture
-As this repository is the for the back-end system, I will only cover the Ruby on Rails portion of the application here. To see the front-end oriented application architecture, [head here.](https://github.com/Rhelli/thrive.io-frontend/tree/release/0.1.0)
+As this repository is the for the back-end system, I will only cover the Ruby on Rails portion of the application here. To see the front-end oriented application architecture, [head here.](https://github.com/Rhelli/thrive.io-frontend)
 
 ## File Structure
 As the backend for this project utilises Rails working in a strictly API type fashion, a large periphery of Rails utilities are not needed here. Therefore, we are working strictly with Controllers, Models and Routes (amongst others). Additionally, due to this backend being an API style system, we have namespaced all of our controllers uner the /api/v1 namespace.
@@ -113,7 +114,7 @@ Additional security has been implemented around performing password changes (the
  - Heroku
 
 ### 💻 Setup & Use
-Follow [this link]() to see a live version of the project. If you'd like a closer look, continue reading....
+Follow [this link](https://thrive-living.herokuapp.com/) to see a live version of the project. If you'd like a closer look, continue reading....
 
 #### Setup
 Setup should be fairly straightforward. You will have to ensure your machine is properly equipped to run the code first:
@@ -138,7 +139,7 @@ Contributions, issues and feature requests are more than welcome!
 If you have any problems running or setting this project up, please submit it as a bug on the [issues page.](https://github.com/Rhelli/thrive.io-backend/issues) right away!
 
 If you want to make your own changes, modifications or improvements, go ahead and Fork it!
-1. [Fork it](https://github.com/Rhelli/thrive.io-backendfork)
+1. [Fork it](https://github.com/Rhelli/thrive.io-backend/fork)
 2. Create your working branch (git checkout -b [choose-a-name])
 3. Commit your changes (git commit -am 'what this commit will fix/add/improve')
 4. Push to the branch (git push origin [chosen-name])
@@ -152,4 +153,4 @@ Rory Hellier - [Github](https://github.com/Rhelli)
 Give a ⭐️ if you like this project!
 
 ## ⚖️ Licensing
-This project is [Privately]() licensed, Copyrighted and is not intended for free distribution or monetisation without prior permission being obtained from the creator.
+This project is [Privately](https://github.com/Rhelli/thrive.io-backend/blob/master/LICENSE.txt) licensed, Copyrighted and is not intended for free distribution or monetisation without prior permission being obtained from the creator.
