@@ -17,6 +17,8 @@
     <a href="https://github.com/Rhelli/thrive.io-backend/issues">Report A Bug</a>
     |
     <a href="https://github.com/Rhelli/thrive.io-backend/fork">Fork It</a>
+    |
+    <a href="https://github.com/Rhelli/thrive.io-frontend">Thrive.io Front end</a>
   </p>
 </p>
 
